@@ -52,27 +52,34 @@ div.page {
 .block {
     display: inline-block;
     padding: 5px;
-    /*
-    margin: 5px;
-    */
     border: 1px dotted black;
-  
 }
 
-ul.axis-select {
-    /* // FIX ME: Causes problem with label clicking the input. */
-    overflow:scroll;    
+div#select-fields {
+    margin: 5px 0;
+    padding: 5px 0;
+    border-top: 1px dotted black;
+    border-bottom: 1px dotted black;
+    text-align: center;  
+    height: 100%; 
+    width: 100%;
+}
+
+.axis-select {
     display: block; 
-    height: 10em;
-    width: 3em;
     padding: 0;
     margin: 0;
 }
-
-ul.axis-select li {
-    list-style-type: none;
-    padding-left: 0px;
+.axis-select span {
+    display: block; 
+    width: 100%;
 }
+.axis-select select {
+    display: block; 
+    height: 10em;
+    width: 100%;
+}
+
 
 div#options-panel {
     width: 100%;

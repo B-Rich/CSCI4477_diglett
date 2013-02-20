@@ -15,6 +15,8 @@ and open the template in the editor.
         <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
         <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
         <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
+        <script src="js/glavin.js"></script>
+        
         <script>
             // Global data set variable        
             var dataSet = {};
@@ -36,29 +38,30 @@ and open the template in the editor.
             
             <div id="options-panel" style="display: block;">
                 
-                <div id="" class="block">
-                    <div class="" style="clear:left; width:100%;">
+                <div id="" class="block" style="width: 15%;">
+                    <div class="" style="width:100%;">
                         <button id="upload-button" onclick="alert('Uploadin');">Upload</button>
                     </div>
 
-                    <div id="" class="" style="text-align: center;  height: 100%; width:100%;">
-                            <div style="display: inline-block; height: 100%; vertical-align: top;">
-                                <label for="x-axis-f1">X</label>
-                                <ul id="x-axis-select" class="axis-select">
-                                    <li><label><input type="radio" name="x-axis" id="x-axis-f1" checked="checked" />F1</label></li>
-                                    <li><input type="radio" name="x-axis" id="x-axis-f2" />F2</li>
-                                    <li><input type="radio" name="x-axis" id="x-axis-f3" />F3</li>
-                                    <li><input type="radio" name="x-axis" id="x-axis-f4" />F4</li>
-                                </ul>
+                    <div id="select-fields">
+                            <div class="axis-select">
+                                <label for="x-axis-select">Select X-Axis Field</label>
+                                <select id="x-axis-select">
+                                    <option value="1" selected="selected">F1</option>
+                                    <option value="2">F2</option>
+                                    <option value="3">F3</option>
+                                    <option value="4">F4</option>
+                                </select>
                             </div>
-                            <div style="display: inline-block; height: 100%;">
-                                <label for="y-axis-f2">Y</label>
-                                <ul id="x-axis-select" class="axis-select">
-                                    <li><label><input type="radio" name="y-axis" id="y-axis-f1" />F1</label></li>
-                                    <li><input type="radio" name="y-axis" id="y-axis-f2" checked="checked" />F2</li>
-                                    <li><input type="radio" name="y-axis" id="y-axis-f3" />F3</li>
-                                    <li><input type="radio" name="y-axis" id="y-axis-f4" />F4</li>
-                                </ul>
+                        <hr />
+                            <div class="axis-select">
+                                <label for="y-axis-select">Select Y-Axis Field</label>
+                                <select id="y-axis-select">
+                                    <option value="1">F1</option>
+                                    <option value="2" selected="selected">F2</option>
+                                    <option value="3">F3</option>
+                                    <option value="4">F4</option>
+                                </select>
                             </div>
 
                     </div>
