@@ -6,6 +6,11 @@
         Purpose of the stylesheet follows.
 */
 
+#dm-graph {
+    width:600px;
+    height:400px;
+}
+
 root { 
     display: block;
 }
