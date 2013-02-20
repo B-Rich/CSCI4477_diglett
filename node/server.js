@@ -4,13 +4,9 @@
  */
 
 // constants
-var 
-    LOGGING = true,
-    DEBUGGING = true;
-    
-/*
-* setup the logger if logging enabled
-*/
+
+
+// setup the logger 
 var logger = undefined;
 try {
     
@@ -105,11 +101,31 @@ logger.log('Loading socket methods');
 
 function parse_data(key) {
     
-    console.log(__dirname)
     try 
     {
-        var dataSet = fs.readFileSync('./' + key + '.csv');
-        console.log(dataSet);
+        var 
+            fileData = [],
+            rawData = fs.readFileSync(key + '.csv', 'utf8');
+        
+        // seperate data by line
+        var lines = rawData.split('\n');
+
+        // iterate through each line
+        for (var i in lines) {
+
+           // seperate line entries by comma
+           var entries = lines[i].split(',');
+
+           // iterate through each line entry
+           for (var q in entries) {    
+               if (fileData[q] === undefined) {
+                   fileData[q] = [];
+               }
+               fileData[q][i] = entries[q];
+           }
+        }
+        return fileData;    // return my dataset
+        
     } catch (error) {
         console.log(error);
     }
@@ -125,9 +141,11 @@ io.sockets.on('connection', function (socket) {
     // ship the data to client
     socket.on('pull data', function (data) {
         
-        logger.log('pull data');
-        var dataSet = parse_data(data.key);
-        socket.emit('push data', dataSet);
+        var fileData = parse_data(data.key, socket);
+        
+        logger.log('pull complete'); logger.log('push data');
+        
+        socket.emit('push data', fileData);
     });
 });
 
