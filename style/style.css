@@ -10,3 +10,21 @@ root {
     display: block;
 }
 
+header, footer {
+    border: 1px solid black;
+    display: block;
+    width: 100%;
+}
+
+div.page {
+   display: block; 
+    
+}
+
+.block {
+    display: block;
+    float: left;
+    border: 2px dotted black;
+    padding: 5px;
+    margin: 5px;
+}
