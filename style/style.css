@@ -7,23 +7,42 @@
 */
 
 #dm-graph {
+    /*
     width:600px;
     height:400px;
+    */
+    width: 100%;
+    height: 400px; /* jQuery should automatically resize this */
+    margin: 10px;
     
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
+
 }
 
 root { 
     display: block;
 }
 
+* {
+    /* Recommend from http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
 header, footer {
     border: 1px solid black;
     width: 100%;
-    clear: left;
+    
     padding: 5px;
+}
+
+footer li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
 }
 
 div.page {
@@ -31,8 +50,45 @@ div.page {
 }
 
 .block {
-    float: left;
-    border: 2px dotted black;
+    display: inline-block;
     padding: 5px;
+    /*
     margin: 5px;
+    */
+    border: 1px dotted black;
+  
+}
+
+ul.axis-select {
+    /* // FIX ME: Causes problem with label clicking the input. */
+    overflow:scroll;    
+    display: block; 
+    height: 10em;
+    width: 3em;
+    padding: 0;
+    margin: 0;
+}
+
+ul.axis-select li {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+div#options-panel {
+    width: 100%;
+    border: 2px solid black;
+    background-color: rgba(230,230,230,1.0);
+    display: inline-block;
+}
+
+button#upload-button, button#download-button {
+    width: 100%;
+}
+
+div#options-toggle {
+    text-align: center;
+    padding: 5px;
+    border: 2px solid black;
+    background-color: rgba(200,200,200,1.0);
+    margin: 5px 0;
 }
