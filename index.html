@@ -5,9 +5,10 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Data</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style/style.css">
+        
     </head>
     <body>
         
@@ -18,48 +19,63 @@ and open the template in the editor.
         </header>
         
         <div id="page">
-            <!-- First row -->
-            <div class="block" style="width:40%;">
             
-                <div>
-                    <div class="block">
-                        <div style="overflow:scroll; float:left;">
-                            X <br />
-                            <input type="checkbox" checked="checked" />F1 <br />
-                            <input type="checkbox" />F2 <br />
-                            <input type="checkbox" />F3 <br />
-                            <input type="checkbox" />F4 <br />
+            <div class="block" style="width:40%; height: 50%;">
+            
+                <div style="height:100%;">
+                    <div class="block" style="height: 100%;">
+                        <div style="overflow:scroll; float:left; height: 100%;">
+                            <label for="x-axis-f1">X</label>
+                            <div style="overflow:scroll; float:left;">
+                                <input type="radio" name="x-axis" id="x-axis-f1" checked="checked" />F1 <br />
+                                <input type="radio" name="x-axis" />F2 <br />
+                                <input type="radio" name="x-axis" />F3 <br />
+                                <input type="radio" name="x-axis" />F4 <br />
 
+                            </div>
                         </div>
-
-                        <div style="overflow:scroll; float: left;">
-                            Y <br />
-                            <input type="checkbox" />F1 <br />
-                            <input type="checkbox" checked="checked"/>F2 <br />
-                            <input type="checkbox" />F3 <br />
-                            <input type="checkbox" />F4 <br />
+                        <div style="overflow:scroll; float:left; height: 100%;">
+                            <label for="y-axis-f2">Y</label>
+                            <div style="overflow:scroll; float: left; height: 100%;">
+                                <input type="radio" name="y-axis" />F1 <br />
+                                <input type="radio" name="y-axis" id="y-axis-f2" checked="checked" />F2 <br />
+                                <input type="radio" name="y-axis" />F3 <br />
+                                <input type="radio" name="y-axis" />F4 <br />
+                            </div>
                         </div>
+                        
                     </div>
 
-                    <div id="dm-graph" class="block" style="">
+                    <div id="dm-graph" class="block" style="width:600px; height:400px;
+                         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+                    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+                    box-sizing: border-box;         /* Opera/IE 8+ */
+                    ">
                         Graph
                     </div>
             
                 </div>
+
+                <div class="block" style="width: 100%; clear:left;	
+                    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+                    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+                    box-sizing: border-box;         /* Opera/IE 8+ */
+                    ">
+                    Some random shit
+                </div>
                 
-                <!-- Second row -->
-                <div class="block" style="width: 60%;">Some random shit</div>
-            
             </div>
             
-            <div class="block" style="width:40%;">
-                <div class="block">
-                Upload
-                Display options / As Dawson calls, "algorithms"
+            <div class="block" style="width:40%; height: 50%;">
+                <div class="block" style="clear:left;">
+                    <button onclick="alert('Uploadin');">Upload</button>
                 </div>
             
-                <!-- Second row -->
-                <div class="block">
+                <div class="block" style="clear:left;">
+                    Display options / As Dawson calls, "algorithms"
+                </div>
+            
+                <div class="block" style="clear:left;">
                     <button onclick="alert('Dawson, WTF. Get workin\'!');">Download</button>
                 </div>
             
