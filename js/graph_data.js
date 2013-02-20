@@ -1,25 +1,19 @@
 /* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Dawson Reid 
+ * Feb 20, 2013
  */
 
-function graphData() {
+var socket = io.connect('http://localhost:8080');
+
+function updateData(keyValue) {
+    socket.emit('pull data', { key : keyValue });
+    socket.on('push data', function (data) {
+        console.log(JSON.stringify(data));
+    });
+} 
+
+function test_updateData() {
     
-    var d1 = [];
-    for (var i = 0; i < 14; i += 0.5)
-        d1.push([i, Math.sin(i)]);
-    
-    $("#dm-graph").width('600px');
-    $("#dm-graph").height('400px');
-    
-    console.log('width : ' + $("#dm-graph").width());
-    
-    $.plot($("#dm-graph"), [
-        {
-            data: d1,
-            lines: { show: true, fill: true }
-        }]);
+    updateData('randat');
 }
-
-
-graphData();
+test_updateData();
