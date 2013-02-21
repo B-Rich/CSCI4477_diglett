@@ -10,7 +10,7 @@ and open the template in the editor.
         
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="style/style.css">
-        <link rel="stylesheet" type="text/css" href="style/dawson.css">
+        <link rel="stylesheet" type="text/css" href="style/upload-dialog.css">
         
         <!-- JavaScript -->
         <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
@@ -19,16 +19,26 @@ and open the template in the editor.
 
         <script>
         <!-- Global Variables -->
-            var dataSet = {};
+            var 
+                dataSet = {},
+                DEBUG = true;
     
            window.onload = function() {
                setupUploadFile();
            };
+           
+           function loggg(message) {
+               if (DEBUG === true) {
+                   console.log(message);
+               }
+           }
         </script>
         
-        <script src="js/dawson.js"></script>
-        <script src="js/glavin.js"></script>
-        <script src="js/chris.js"></script>
+        <script type="text/javascript" src="js/glavin.js"></script>
+        
+        <!--  <script type="text/javascript" src="./js/main.js"></script> -->
+        <script type="text/javascript" src="./js/dawson.js"></script>
+        <script type="text/javascript" src="./js/chris.js"></script>
         
     </head>
     <body>
@@ -105,15 +115,16 @@ and open the template in the editor.
         <!-- Custom upload file dialog -->
         <div id="dm-file-upload" style="left: 494px; top: 197px;">
             <div id="dm-file-content">
+                <h4>Upload a CSV</h4>
                 <form 
                     id="dm-upload-form"
                     method='POST' 
                     enctype='multipart/form-data'
                     action="/upload"
                     >
-                    <input id="dm-file-input">
+                    <input id='dm-file-input' type='file'></input>
                 </form>
-                <button onclick="uploadFile();">Submit</button>
+                <button id='dm-submit-button' onclick="uploadFile();">Upload CSV</button>
             </div>
         </div>
         

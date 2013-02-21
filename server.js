@@ -44,6 +44,8 @@ var
 // START Server
 // ----------------------------------------------------------------------------
 
+var userStore = {};
+
 logger.log('Loading server functions.');
 
 function requestEnded(error) {
@@ -76,8 +78,8 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({
         store: memStore,
-        secret: 'm0ng00s3',
-        key: 'mwa.sid'
+        secret: 'dugtrio',
+        key: 'diglett.sid'
     }));
     
     app.use(app.router);
@@ -92,15 +94,25 @@ app.get('/', function (request, response) {
     request.on('end', requestEnded);
     request.on('close', requestClosed);
     
-    console.log('sending test');
-    //response.sendfile('index.html');
+    response.sendfile('index.html');
 });
 
-app.post('/upload', function (request, response){
+app.post('/', function (request, response){
     
     request.on('end', requestEnded);
     request.on('close', requestClosed);
     
+     logger.log('Upload started.', nodeL.LOG_TYPE.REQUEST);
+     
+     response.sendfile('index.html');
+     
+     fs.readFile(req.files.displayImage.path, function (err, data) {
+        // ...
+        var newPath = __dirname + "/uploads/uploadedFileName";
+        fs.writeFile(newPath, data, function (err) {
+          res.redirect("back");
+        });
+      });
 });
 
 server.listen(8080);

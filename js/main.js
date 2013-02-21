@@ -16,11 +16,11 @@ var socket = io.connect('http://localhost:8080');
  * 
  * keyValue - the name of the file uploaded.
  */
-function updateData(keyValue) {
+function updateData(fileName) {
     
     console.log('pull data');
     
-    socket.emit('pull data', { key : keyValue });
+    socket.emit('pull data', { key : fileName });
     socket.on('push data', function (data) {
         
         console.log('push recieved');
@@ -62,3 +62,29 @@ function setupUploadFile() {
  * visualization rendering methods
  * ----------------------------------------------------------------------------
  */
+
+/* 
+ * Make an aray of pairs from the columns to be plotted 
+ */
+function formatData(colX, colY) {
+    var dat = [];
+    for(var i = 0; i < dataSet[colX].length; i++) {
+       dat.push([(dataSet[colX])[i], (dataSet[colY])[i]]);
+    }
+    return dat;
+}
+
+function selectData(){
+    var colX = $('#x-axis-select option:selected');
+    var colY = $('#y-axis-select option:selected');
+    return formatData(colX.val(), colY.val());
+}
+
+function updateScreen() {
+    
+    var dat = selectData();
+    $.plot($('#dm-graph'), [{
+            data:dat,
+            points:{show:true}
+    }]);
+}

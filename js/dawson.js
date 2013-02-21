@@ -31,7 +31,9 @@ function test_updateData() {
 
 function uploadFile() {
     
-    
+    loggg('upload submitted.');
+    $('#dm-file-input').attr({ name : 'file.csv' });
+    $('#dm-upload-form').submit();
 }
 
 function test_uploadFile() {
