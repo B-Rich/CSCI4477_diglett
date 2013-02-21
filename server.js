@@ -10,7 +10,7 @@
 var logger = undefined;
 try {
     
-    var nodeL = require('./libs/nodeL');
+    var nodeL = require('./node/nodeL');
     logger = new nodeL.Logger
             (
             nodeL.LOG_MEDIUM.CONSOLE,
@@ -34,7 +34,10 @@ var
         util = require('util'),
         fs = require('fs'),
         url = require('url'),
-        qs = require('querystring');
+        qs = require('querystring'),
+        express = require('express'),
+        connect = require('connect'),
+        cookie = require('cookie');
 
 
 // ----------------------------------------------------------------------------
@@ -51,26 +54,58 @@ function requestClosed(error) {
     logger.log('\tRequest closed.');
 }
 
-function handleRequest(request, response) {
-   
-    logger.log('Request start.');
+// create and init my server
+var 
+    app = express(),
+    server = http.createServer(app),
+    memStore = new express.session.MemoryStore();
+
+logger.log('Configuring server.');
+
+app.configure(function(){
+  
+  // web server config
+  app.use(express.methodOverride());
+  app.use(express.bodyParser());
+  app.use(express.static(__dirname));
+  app.use(express.errorHandler({
+    dumpExceptions: true, 
+    showStack: true
+  }));
+  // session support
+  app.use(express.cookieParser());
+  app.use(express.session({
+        store: memStore,
+        secret: 'm0ng00s3',
+        key: 'mwa.sid'
+    }));
     
-    // register request events
-    request.on('end', requestEnded);
-    request.on('close', requestClosed);
-    
-    // if not viewing from mobile device, redirect
-    response.end();
-    
-    return;
-};
+    app.use(app.router);
+});
 
 logger.log('Starting server.');
 
-// create and init my server
-var server = http.createServer();
-server.on('request', handleRequest);
+app.get('/', function (request, response) {
+    
+    logger.log('Request started.', nodeL.LOG_TYPE.REQUEST);
+    
+    request.on('end', requestEnded);
+    request.on('close', requestClosed);
+    
+    console.log('sending test');
+    //response.sendfile('index.html');
+});
+
+app.post('/upload', function (request, response){
+    
+    request.on('end', requestEnded);
+    request.on('close', requestClosed);
+    
+});
+
 server.listen(8080);
+
+logger.log('Server started.');
 
 // ----------------------------------------------------------------------------
 // END Server
@@ -88,7 +123,7 @@ function parse_data(key) {
     {
         var 
             fileData = [],
-            rawData = fs.readFileSync(key + '.csv', 'utf8');
+            rawData = fs.readFileSync('./data/' + key + '.csv', 'utf8');
         
         // seperate data by line
         var lines = rawData.split('\n');
@@ -130,6 +165,17 @@ io.sockets.on('connection', function (socket) {
         
         socket.emit('push data', fileData);
     });
+});
+
+io.set('authorization', function (data, accept) {
+    
+    if (data.headers.cookie) {    
+        // attain the session id
+        data.sessionID = connect.utils.parseSignedCookies(cookie.parse(decodeURIComponent(data.headers.cookie)),'m0ng00s3')['mwa.sid'];
+        return accept(null, true);
+    } else {
+       return accept('No cookie transmitted.', false);
+    }
 });
 
 // ----------------------------------------------------------------------------

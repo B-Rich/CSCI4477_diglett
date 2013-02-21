@@ -5,6 +5,12 @@
 
 var socket = io.connect('http://localhost:8080');
 
+/*
+ * pulls the data from the server and update the global
+ * dataset object.
+ * 
+ * keyValue - the name of the file uploaded.
+ */
 function updateData(keyValue) {
     
     console.log('pull data');
@@ -19,8 +25,17 @@ function updateData(keyValue) {
 
 function test_updateData() {
     
-    
     updateData('randat');
-    console.log(dataSet);
 }
-test_updateData();
+//test_updateData();
+
+function uploadFile() {
+    
+    
+}
+
+function test_uploadFile() {
+    
+    uploadFile();
+}
+//test_uploadFile();
