@@ -64,4 +64,73 @@ function testDisplayFieldList() {
     displayFieldList();
 }
 
+// Global variables
+var origHeight = 0;
+$(document).ready( function () {
+   // On load
+   var origHeight = $("#options-panel").height();
 
+   $('#dm-graph').css( {
+    height: ( 
+            $(window).height() 
+            - 2 * parseInt( $("body").css("margin-top") ) 
+            - $("header").height() 
+            - 2 * parseInt( $("header").css("padding-top") ) 
+            - $("footer").height() 
+            - 2 * parseInt( $("footer").css("padding-top") )
+            - 2 * parseInt( $("#dm-graph").css("margin-top") ) 
+            - $("#options-toggle").height() 
+            - 2 * parseInt( $("#options-toggle").css("padding-top") )
+            - 2 * parseInt( $("#options-toggle").css("margin-top") ) 
+            - 10
+   )});
+   
+   $("#options-panel").css( { 
+        bottom: ( 
+         $(window).height() 
+         - $("#options-toggle").position().top 
+//         + parseInt( $("#options-toggle").css("padding-top"))
+        ) } );
+   $("#options-panel").css( { width: $("#options-toggle").width() } );
+   $("#options-panel").hide();
+        
+   $("#options-toggle").on("click", function () { 
+        var options = $("#options-panel"); 
+        if ( !options.hasClass("active") )
+        { // Is currently hidden
+         // Show
+         options.addClass("active");
+         //var origHeight = options.height();
+         options.height(0);
+         options.show();
+         options.animate( { height: origHeight }, 1000 );
+        }
+        else
+        { // Is current showing
+         // Hide
+         options.removeClass("active");
+         //var origHeight = options.height();
+         options.animate( { height: 0 }, 1000, 
+         function () { options.hide();
+         options.height(origHeight); } );
+        }
+   });
+   
+});
+
+
+
+function createDataSet(colNum, rowNum) {
+ var dataSet = new Array();
+ 
+ for (var c=0; c<colNum; c++)
+    {
+        var newColumn = new Array();
+        for (var r=0; r<rowNum; r++)
+        {
+            newColumn.push( (Math.random()*1000) );
+        }
+        dataSet.push(newColumn);
+    }
+    return dataSet;
+}
