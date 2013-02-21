@@ -10,6 +10,7 @@ and open the template in the editor.
         
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="style/style.css">
+        <link rel="stylesheet" type="text/css" href="style/dawson.css">
         
         <!-- JavaScript -->
         <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
@@ -19,6 +20,10 @@ and open the template in the editor.
         <script>
         <!-- Global Variables -->
             var dataSet = {};
+    
+           window.onload = function() {
+               setupUploadFile();
+           };
         </script>
         
         <script src="js/dawson.js"></script>
@@ -41,8 +46,9 @@ and open the template in the editor.
             <div id="options-panel" style="display: block;">
                 
                 <div id="" class="block" style="width: 15%;">
+                    
                     <div class="" style="width:100%;">
-                        <button id="upload-button" onclick="alert('Uploadin');">Upload</button>
+                        <button id="upload-button">Upload</button>
                     </div>
 
                     <div id="select-fields">
@@ -95,6 +101,20 @@ and open the template in the editor.
             </div>
         </div>
         
+        <!-- Custom upload file dialog -->
+        <div id="dm-file-upload" style="left: 494px; top: 197px;">
+            <div id="dm-file-content">
+                <form 
+                    id="dm-upload-form"
+                    method='POST' 
+                    enctype='multipart/form-data'
+                    action="/upload"
+                    >
+                    <input id="dm-file-input">
+                </form>
+                <button onclick="uploadFile();">Submit</button>
+            </div>
+        </div>
         
         <footer>
             <div>
