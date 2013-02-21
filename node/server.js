@@ -59,24 +59,7 @@ function handleRequest(request, response) {
     request.on('end', requestEnded);
     request.on('close', requestClosed);
     
-    if (request.method === 'POST') {
-        var data = "";
-
-        request.on("data", function(chunk) {
-            data += chunk;
-        });
-
-        request.on("end", function() {
-            util.log("raw: " + data);
-
-            var json = qs.parse(data);
-
-            util.log("json: " + json);
-        });
-    }
-    
     // if not viewing from mobile device, redirect
-    response.writeHead(302, {Location: 'http://www.mongoosetools.com'});
     response.end();
     
     return;
@@ -136,7 +119,7 @@ logger.log('Starting socket.');
 io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     
-    logger.log('Socket Request.');
+    logger.log('Socket connection.');
     
     // ship the data to client
     socket.on('pull data', function (data) {
