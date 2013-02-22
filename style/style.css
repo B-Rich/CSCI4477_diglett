@@ -6,21 +6,6 @@
         Purpose of the stylesheet follows.
 */
 
-#dm-graph {
-    /*
-    width:600px;
-    height:400px;
-    */
-    width: 100%;
-    height: 400px; /* jQuery should automatically resize this */
-    margin: 10px;
-    
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
-
-}
-
 root { 
     display: block;
 }
@@ -76,16 +61,21 @@ div#select-fields {
 }
 .axis-select select {
     display: block; 
+    /*
     height: 10em;
+    */
     width: 100%;
 }
 
 
 div#options-panel {
     width: 100%;
-    border: 2px solid black;
+    border: 1px solid black;
     background-color: rgba(230,230,230,1.0);
     display: inline-block;
+    position: fixed;
+    overflow: hidden;
+    z-index: 10;
 }
 
 button#upload-button, button#download-button {
@@ -94,8 +84,28 @@ button#upload-button, button#download-button {
 
 div#options-toggle {
     text-align: center;
-    padding: 5px;
-    border: 2px solid black;
+    border: 1px solid black;
     background-color: rgba(200,200,200,1.0);
     margin: 5px 0;
+    padding: 5px 0 5px 0;
+}
+
+
+#dm-graph {
+    /*
+    width:600px;
+    height:400px;
+    */
+    
+    background-image: url('http://i31.photobucket.com/albums/c390/droogin_leader2006/hotCrazyScaleExample.jpg');
+    background-size: 100% 100%;
+    
+    width: 100%;
+    height: 100px; /* jQuery should automatically resize this */
+    border: 1px dotted black;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+
+    
 }
