@@ -5,7 +5,7 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
     <head>
-        <title>DataMole</title>
+        <title>diglett</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <!-- CSS -->
@@ -37,15 +37,15 @@ and open the template in the editor.
         <script type="text/javascript" src="js/glavin.js"></script>
         
         <!--  <script type="text/javascript" src="./js/main.js"></script> -->
-        <script type="text/javascript" src="./js/dawson.js"></script>
         <script type="text/javascript" src="./js/chris.js"></script>
+        <script type="text/javascript" src="./js/dawson.js"></script>
         
     </head>
     <body>
         
         <header>
         <img alt="algorithms" src="http://cdn.memegenerator.net/instances/400x/30132040.jpg" height="100px"/>    
-        Our awesome data mining project
+        <img id="dig-refresh-button" src="image/Refresh.png" onclick="refreshDataClick();" />
         </header>
         
         <div id="page">
@@ -125,9 +125,6 @@ and open the template in the editor.
             </div>
             
             <div id="options-toggle" onclick=''>Toggle Options</div>
-            
-            
-            
         </div>
         
         <!-- Custom upload file dialog -->
@@ -138,9 +135,9 @@ and open the template in the editor.
                     id="dm-upload-form"
                     method='POST' 
                     enctype='multipart/form-data'
-                    action="/upload"
+                    action="/"
                     >
-                    <input id='dm-file-input' type='file'></input>
+                    <input id='dm-file-input' type='file' name="data" ></input>
                 </form>
                 <button id='dm-submit-button' onclick="uploadFile();">Upload CSV</button>
             </div>

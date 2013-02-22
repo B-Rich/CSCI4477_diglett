@@ -105,11 +105,18 @@ div#options-toggle {
     box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
+
 #dm-stats {
     width: 720px;
     height: 101%;
     border: 2px solid black;
     float: left;
+}
+
+#dig-refresh-button {
+    float : right;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 #dig-visTable {

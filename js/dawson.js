@@ -5,34 +5,31 @@
 
 var socket = io.connect('http://localhost:8080');
 
-/*
- * pulls the data from the server and update the global
- * dataset object.
+// recieve data from server
+socket.on('push data', function (data) {
+        
+    loggg('push recieved');
+    if (data !== undefined && data !== null) {
+        dataSet = data;
+    }
+});
+
+function refreshDataClick() {
+    socket.emit('pull data');
+    if (typeof formatInterface == 'function') {
+        formatInterface();
+    }
+}
+
+/* uploads the csv file to the server and then
+ * pulls the data from the server and update the 
+ * global dataset object.
  * 
  * keyValue - the name of the file uploaded.
  */
-function updateData(keyValue) {
-    
-    console.log('pull data');
-    
-    socket.emit('pull data', { key : keyValue });
-    socket.on('push data', function (data) {
-        
-        console.log('push recieved');
-        dataSet = data;
-    });
-} 
-
-function test_updateData() {
-    
-    updateData('randat');
-}
-//test_updateData();
-
 function uploadFile() {
     
     loggg('upload submitted.');
-    $('#dm-file-input').attr({ name : 'file.csv' });
     $('#dm-upload-form').submit();
 }
 
@@ -49,7 +46,7 @@ function setupUploadFile() {
      
     $('#dm-file-upload').css({
         left : ($(window).width() - $('#dm-file-upload').width()) / 2,
-        top : ($(window).height() - $('#dm-file-upload').height()) / 2
+        top : ($(window).height() - $('#dm-file-upload').height()) / 4
     });
     
     $(document).click(function() {
