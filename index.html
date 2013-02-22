@@ -34,11 +34,10 @@ and open the template in the editor.
         
         <div id="page">
 
+            
             <div id="dm-graph" class=""></div>
             
-            <div id="options-toggle" onclick='$("#options-panel").toggle();'>Toggle Options</div>
-            
-            <div id="options-panel" style="display: block;">
+            <div id="options-panel" style="">
                 
                 <div id="" class="block" style="width: 15%;">
                     <div class="" style="width:100%;">
@@ -79,20 +78,29 @@ and open the template in the editor.
                     <div class="block" style="clear:left; width: 100%;">
                         <span>Display options / As Dawson calls, "algorithms" </span><br />
                         
-                        <input type="checkbox" id="option1" ></input><label for="option1">Plot Best Fit</label><br /> 
-                        <input type="checkbox" id="option2" ></input><label for="option2">Draw Cluster Spheres</label><br /> 
-                        <input type="checkbox" id="option3" ></input><label for="option3">Display third option</label><br /> 
+                        <label><input type="checkbox" id="option1" ></input>Plot Best Fit</label><br /> 
+                        <label><input type="checkbox" id="option2" ></input>Draw Cluster Spheres</label><br /> 
+                        <label><input type="checkbox" id="option3" ></input>Display third option</label><br /> 
                     
                     </div>
 
+                    <div class="block" style="width: 100%; clear:left;">
+                        <label>Number of clusters: <input type="number" name="clusterCount" placeholder="2" value="2" /> </label><br />
+                        <label>Number of iterations: <input type="number"  name="iterationCount" value="1000"/> </label><br />
+                        
+                    </div>
+                    
                     <div class="block" style="width: 100%; clear:left;">
                         Table of statistics from kmeans algorithm.
                     </div>
 
                 </div>
-
-
             </div>
+            
+            <div id="options-toggle" onclick=''>Toggle Options</div>
+            
+            
+            
         </div>
         
         
