@@ -1,6 +1,11 @@
 /* 
- * Dawson Reid 
- * Feb 20, 2013
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/* ----------------------------------------------------------------------------
+ * socket methods
+ * ----------------------------------------------------------------------------
  */
 
 var socket = io.connect('http://localhost:8080');
@@ -23,22 +28,10 @@ function updateData(keyValue) {
     });
 } 
 
-function test_updateData() {
-    
-    updateData('randat');
-}
-//test_updateData();
-
-function uploadFile() {
-    
-    
-}
-
-function test_uploadFile() {
-    
-    uploadFile();
-}
-//test_uploadFile();
+/* ----------------------------------------------------------------------------
+ * upload dialog methods
+ * ----------------------------------------------------------------------------
+ */
 
 /*
  * Sets up the custom upload file dialog.
@@ -64,3 +57,8 @@ function setupUploadFile() {
         $('html, body').animate({scrollTop:0}, 'slow');
     });
 }
+
+/* ----------------------------------------------------------------------------
+ * visualization rendering methods
+ * ----------------------------------------------------------------------------
+ */
