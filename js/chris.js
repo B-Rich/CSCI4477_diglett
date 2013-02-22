@@ -1,6 +1,8 @@
-/* Generate a random data set for testing */
+/* 
+ * Generate a random dataSet for testing 
+ */
 function createDataSet(colNum, rowNum) {
-    var dataSet = new Array();
+    dataSet = new Array();
     for (var c=0; c<colNum; c++) {
         var newColumn = new Array();
         for (var r=0; r<rowNum; r++) {
@@ -22,14 +24,19 @@ function formatData(colX, colY) {
     return dat;
 }
 
+/* 
+ * Specify the column selected by the user
+ */
 function selectData(){
     var colX = $('#x-axis-select option:selected');
     var colY = $('#y-axis-select option:selected');
     return formatData(colX.val(), colY.val());
 }
 
+/* 
+ * Refresh the graph block with the user's desired table 
+ */
 function updateScreen() {
-    dataSet = createDataSet(1000, 1000);
     var dat = selectData();
     $.plot($('#dm-graph'), [{
             data:dat,
@@ -37,6 +44,17 @@ function updateScreen() {
     }]);
 }
 
+/* 
+ * Format the axis-select elements to match the given dataSet
+ */
+function formatInterface() {
+    displayFieldList();
+    updateScreen();
+}
+
+/* 
+ * Test function
+ */
 function test_selectData() {
     
     dataSet = createDataSet(10, 10);

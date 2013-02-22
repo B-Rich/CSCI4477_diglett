@@ -56,7 +56,8 @@ function displayFieldList() {
     $("ul#y-axis-select").replaceWith(yAxisSelect);    
     */
     $("select#x-axis-select").replaceWith(xAxisSelect);
-    $("select#y-axis-select").replaceWith(yAxisSelect);       
+    $("select#y-axis-select").replaceWith(yAxisSelect);
+    $("select#x-axis-select, select#y-axis-select").change( function () { updateScreen();} );
 }
 
 function testDisplayFieldList() {

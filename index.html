@@ -50,8 +50,18 @@ and open the template in the editor.
         
         <div id="page">
 
-            
-            <div id="dm-graph" class=""></div>
+            <table id="dig-visTable">
+                <tr>
+                    <td>
+                        <div id="graphContainer">
+                        <div id="dm-graph" class=""></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="dm-stats" class=""></div>
+                    </td>
+                </tr>
+            </table>
             
             <div id="options-panel" style="">
                 
@@ -64,7 +74,7 @@ and open the template in the editor.
                     <div id="select-fields">
                             <div class="axis-select">
                                 <label for="x-axis-select">Select X-Axis Field</label>
-                                <select id="x-axis-select">
+                                <select id="x-axis-select" onchange="updateScreen();">
                                     <option value="1" selected="selected">F1</option>
                                     <option value="2">F2</option>
                                     <option value="3">F3</option>
@@ -74,7 +84,7 @@ and open the template in the editor.
                         <hr />
                             <div class="axis-select">
                                 <label for="y-axis-select">Select Y-Axis Field</label>
-                                <select id="y-axis-select">
+                                <select id="y-axis-select" onchange="updateScreen();">
                                     <option value="1">F1</option>
                                     <option value="2" selected="selected">F2</option>
                                     <option value="3">F3</option>
@@ -140,8 +150,8 @@ and open the template in the editor.
             <div>
                 <ul>
                     <li>Dawson Reid</li>
-                    <li>Asha</li>
-                    <li>Chris</li>
+                    <li>Asha Rani</li>
+                    <li>Chris Ouellet</li>
                     <li>Glavin Wiechert</li>
                 </ul>
             </div>
