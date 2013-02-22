@@ -90,6 +90,7 @@ logger.log('Starting server.');
 app.get('/', function (request, response) {
     
     logger.log('Request started.', nodeL.LOG_TYPE.REQUEST);
+    logger.log('GET : ' + request.sessionID, nodeL.LOG_TYPE.REQUEST);
     
     request.on('end', requestEnded);
     request.on('close', requestClosed);
@@ -99,20 +100,17 @@ app.get('/', function (request, response) {
 
 app.post('/', function (request, response){
     
-    request.on('end', requestEnded);
-    request.on('close', requestClosed);
-    
      logger.log('Upload started.', nodeL.LOG_TYPE.REQUEST);
+     logger.log('POST : ' + request.sessionID, nodeL.LOG_TYPE.REQUEST);
+     
+     // init user store object
+     if (userStore[request.sessionID] === undefined) {
+        userStore[request.sessionID] = {};
+     }
+     // save the upload file tmp location
+     userStore[request.sessionID].file = request.files.data.path;
      
      response.sendfile('index.html');
-     
-     fs.readFile(req.files.displayImage.path, function (err, data) {
-        // ...
-        var newPath = __dirname + "/uploads/uploadedFileName";
-        fs.writeFile(newPath, data, function (err) {
-          res.redirect("back");
-        });
-      });
 });
 
 server.listen(8080);
@@ -129,13 +127,13 @@ logger.log('Server started.');
 
 logger.log('Loading socket methods');
 
-function parse_data(key) {
+function parse_data(file) {
     
     try 
     {
         var 
             fileData = [],
-            rawData = fs.readFileSync('./data/' + key + '.csv', 'utf8');
+            rawData = fs.readFileSync(file, 'utf8');
         
         // seperate data by line
         var lines = rawData.split('\n');
@@ -169,21 +167,35 @@ io.sockets.on('connection', function (socket) {
     logger.log('Socket connection.');
     
     // ship the data to client
-    socket.on('pull data', function (data) {
-        
-        var fileData = parse_data(data.key, socket);
+    socket.on('pull data', function () {
+       
+        var 
+            file = userStore[socket.handshake.sessionID].file,
+            fileData = parse_data(file, socket);
         
         logger.log('pull complete'); logger.log('push data');
-        
         socket.emit('push data', fileData);
+    });
+    
+    // testing function
+    socket.on('ding', function () {
+        console.log('DING : ' + socket.handshake.sessionID);
     });
 });
 
+/*
+ * used to add the session ID to the handshake. 
+ * this makes the session ID accessible from the 
+ * socket.on methods.
+ */
 io.set('authorization', function (data, accept) {
     
     if (data.headers.cookie) {    
         // attain the session id
-        data.sessionID = connect.utils.parseSignedCookies(cookie.parse(decodeURIComponent(data.headers.cookie)),'m0ng00s3')['mwa.sid'];
+        data.sessionID = connect.utils.parseSignedCookies(cookie.parse(decodeURIComponent(data.headers.cookie)),'dugtrio')['diglett.sid'];
+        if (userStore[data.sessionID] === undefined) {
+            userStore[data.sessionID] = {};
+        }
         return accept(null, true);
     } else {
        return accept('No cookie transmitted.', false);
