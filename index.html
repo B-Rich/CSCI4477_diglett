@@ -16,12 +16,15 @@ and open the template in the editor.
     <link rel="stylesheet" type="text/css" href="style/options.css">
     <link rel="stylesheet" type="text/css" href="style/results.css">
     <link rel="stylesheet" type="text/css" href="style/filePanel.css">
+    <link rel="stylesheet" type="text/css" href="js/libs/jqTree/jqtree.css">
 
-    <!-- Global Variables -->
     <!-- JavaScript -->
     <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
     <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
     <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
+    <script src="js/libs/jqTree/tree.jquery.js"></script>
+    
+    <!-- Global Variables -->
     <script>
       var origHeight = 0;
       var socket = io.connect('http://localhost:1337');
@@ -75,36 +78,9 @@ and open the template in the editor.
             </div>
           </td>
           <td>
+            
             <div id="dm-stats" class="">
-              <table id="" border="1">
-                <tr>
-                  <td>Cluster</td>
-                  <td><span id="cluster"></span></td>
-                </tr>
-                
-                <tr>
-                  <td>Centers</td>
-                  <td><span id="centers"></span></td>
-                </tr>
-                
-                <tr>
-                  <td>Withinsss:</td>
-                  <td><span id="totss"></span></td>
-                </tr>
-                
-                <tr><td>Tot.Withinss:</td>
-                  <td><span id="totWithinss"></span></td>
-                </tr>
-                
-                <tr><td>Betweenss:</td>
-                  <td><span id="betweenss"></span></td>
-                </tr>
-                
-                <tr><td>Size:</td>
-                  <td><span id="size"></span> </td>
-                </tr>
-                
-              </table>
+              
             </div>
           </td>
         </tr>

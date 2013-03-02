@@ -40,6 +40,7 @@ function updateScreen() {
   console.log("update stats");
   var maxIter = $("#iterationCount").val();
   var clustersCount = $("#clusterCount").val();
+  
   socket.emit("kmeans cluster", {
     x: dataSet[$('#x-axis-select option:selected').val()], y: dataSet[$('#y-axis-select option:selected').val()], 
     maxIter: maxIter, centers: clustersCount
