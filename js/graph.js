@@ -27,17 +27,6 @@ function formatData(colX, colY) {
 }
 
 /* 
- * Specify the column selected by the user
- */
-function selectData(){
-    console.log(arguments.callee.caller.name);
-
-    var colX = $('#x-axis-select option:selected');
-    var colY = $('#y-axis-select option:selected');
-    return formatData(colX.val(), colY.val());
-}
-
-/* 
  * Refresh the graph block with the user's desired table 
  */
 function updateScreen() {

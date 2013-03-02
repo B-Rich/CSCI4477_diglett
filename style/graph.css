@@ -1,0 +1,29 @@
+/* 
+    Document   : graph
+    Created on : Mar 2, 2013, 4:08:19 AM
+    Author     : Owner
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+  display: block;
+}
+
+#graphContainer {
+    width: 600px;
+    height: 425px;
+    border: 2px solid black;
+  /* padding: 5px;*/
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#dm-graph {
+    width: 100%;
+    height: 100%; /* jQuery should automatically resize this */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}

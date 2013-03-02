@@ -25,3 +25,15 @@ header {
     font-style:italic;
     margin-left: 20px;
 }
+
+#dig-refresh-button {
+    margin: 10px;
+    margin: 10px;
+    float:right;
+}
+
+#random-button {
+    float: right;
+    width: 48px;
+    height: 48px;
+}
