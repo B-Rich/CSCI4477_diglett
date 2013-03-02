@@ -37,8 +37,10 @@ var
         qs = require('querystring'),
         express = require('express'),
         connect = require('connect'),
-        cookie = require('cookie'),
-        spawn = require('child_process').spawn;
+        cookie = require('cookie');
+
+// kmeans lib
+var kmeans = require('./node/kmeans').kmeans_2d;
 
 // ----------------------------------------------------------------------------
 // START Server
@@ -159,64 +161,6 @@ function parse_data(file) {
     }
 }
 
-function parseR_kmeans(file, data) {
-  
-  fs.readFile(file, 'utf8', function (err, fileContent) {
-    
-    // parse the object into the template file
-    for (var param in data) {      
-      var rex = RegExp('\{' + param +  '\}', 'm');
-
-      // replace all occurances of regex
-      while (fileContent.match(rex)) {
-        fileContent = fileContent.replace(rex, data[param]);
-      }
-    }
-    
-    // setup R process
-    /*
-    var R = spawn('R');
-    R.stdout.setEncoding('utf8');
-    R.runCmd = true;
-    
-    R.stdin.on('drian', function() {
-      console.log('DRAIN');
-    });
-    R.stdin.on('close', function () {
-      console.log('IN CLOSE');
-    });
-    R.stdin.on('pipe', function () {
-      console.log('PIPE');
-    });
-    R.stdin.on('error', function () {
-      console.log('IN ERROR');
-    });
-    R.stdout.on('close', function () {
-      console.log('OUT CLOSE');
-    });
-    R.stdout.on('end', function () {
-      console.log('END');
-    });
-    R.stdout.on('error', function () {
-      console.log('OUT ERROR');
-    });
-    
-    // output 
-    R.stdout.on('data', function(msg) {
-      console.log(msg);
-    });
-    
-    var lines = fileContent.split('\n');
-    for (var i in lines) {
-      //console.log(JSON.stringify(lines[i] + '\n'));
-      R.stdin.write('4;', 'utf8');
-    }
-    */
-   
-    
-  });
-};
-
 logger.log('Starting socket.');
 
 io = require('socket.io').listen(server);
@@ -248,27 +192,16 @@ io.sockets.on('connection', function (socket) {
      */
     socket.on('kmeans cluster', function(data) {
       
-      if (data.x === undefined || data.y === undefined ||
-            data.maxIter === undefined || data.centers === undefined) {
-        socket.emit('server error', 
-          {
-            id : 501,
-            title : 'cluster data error',
-            message : 'Undefined fields in transmitted kmeans data object.'
-          });
-          
-          return ;
+      try {
+        console.log('KMEANS CLUSTER');
+        var km = kmeans(data);
+        
+        socket.emit('kmeans cluster', km);
+        
+      } catch (err) {
+        socket.emit('server error', err);
       }
       
-      data.xstr = '' + data.x[0],
-      data.ystr = '' + data.y[0];
-      
-      for (var i = 1; i < data.x.length && i < data.y.length; i++) {
-        data.xstr += ',' + data.x[i];
-        data.ystr += ',' + data.y[i];
-      }
-      
-      parseR_kmeans('./rscript/kmeans.R.tmpl', data);
     });
 });
 
