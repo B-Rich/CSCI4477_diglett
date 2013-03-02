@@ -33,6 +33,10 @@ $(document).ready(function() {
       options.show();
     }
   });
+  
+  $("#options-panel input").click( function() { updateScreen(); } );
+
+  
 });
 
 /* 
@@ -106,4 +110,3 @@ function displayFieldList() {
   });
 }
 
-$("#options-panel input").on('click', function() { updateScreen(); } );

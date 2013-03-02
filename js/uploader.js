@@ -9,12 +9,12 @@ socket.on('push data', function (data) {
     loggg('push recieved');
     if (data !== undefined && data !== null) {
         dataSet = data;
+        formatInterface();
     }
 });
 
 function refreshDataClick() {
     socket.emit('pull data');
-    formatInterface();
 }
 
 /* uploads the csv file to the server and then

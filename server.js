@@ -151,7 +151,7 @@ function parse_data(file) {
                if (fileData[q] === undefined) {
                    fileData[q] = [];
                }
-               fileData[q][i] = entries[q];
+               fileData[q][i] = parseFloat(entries[q]);
            }
         }
         return fileData;    // return my dataset

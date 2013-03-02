@@ -2,9 +2,9 @@
  * Generate a random dataSet for testing 
  */
 function createDataSet(colNum, rowNum) {
-  dataSet = new Array();
+  dataSet = [];
   for (var c = 0; c < colNum; c++) {
-    var newColumn = new Array();
+    var newColumn = [];
     for (var r = 0; r < rowNum; r++) {
       newColumn.push((Math.random() * 1000));
     }
@@ -37,14 +37,30 @@ function updateScreen() {
       grid: {minBorderMargin: 10}}]
           );
   // Get the kMeans data
-  console.log("update stats");
+  console.log("update stats2");
   var maxIter = $("#iterationCount").val();
   var clustersCount = $("#clusterCount").val();
   
-  socket.emit("kmeans cluster", {
-    x: dataSet[$('#x-axis-select option:selected').val()], y: dataSet[$('#y-axis-select option:selected').val()], 
-    maxIter: maxIter, centers: clustersCount
+  var 
+    xCol = $('#x-axis-select option:selected').val(),
+    yCol = $('#y-axis-select option:selected').val();
+  var dataMinSize = dataSet[xCol].length;
+  if (dataMinSize > dataSet[yCol].length) {
+    dataMinSize = dataSet[yCol].length;
+  }
+  dataSet[xCol].splice(dataMinSize);
+  dataSet[yCol].splice(dataMinSize);
+  
+  console.log({
+    x: dataSet[xCol], y: dataSet[yCol], 
+    maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
   });
+  
+  socket.emit("kmeans cluster", {
+    x: dataSet[xCol], y: dataSet[yCol], 
+    maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
+  });
+  
 }
 
 /* 

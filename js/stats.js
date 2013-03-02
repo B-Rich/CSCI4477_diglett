@@ -66,12 +66,12 @@ function buildTreeKmeansData(data) {
         {
           label : 'Centroid',
           children : [
-            { label : 'x : ' + data[i].centroid.x.toFixed(6) },
-            { label : 'y : ' + data[i].centroid.y.toFixed(6) }
+            { label : 'x : ' + data[i].centroid.x },
+            { label : 'y : ' + data[i].centroid.y }
           ]
         },
         {
-          label : 'Radius : ' + data[i].radius.toFixed(6)
+          label : 'Radius : ' + data[i].radius
         },
         {
           label : 'Points : ',
