@@ -46,6 +46,6 @@ div.page {
     box-sizing: border-box;
 }
 
-#dig-visTable td {
+#dig-visTable td:not(#dm-stats-panel) {
   padding: 0 20px 0 0;
 }
