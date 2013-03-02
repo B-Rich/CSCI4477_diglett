@@ -39,9 +39,10 @@ function selectData(){
 function updateScreen() {
     var dat = selectData();
     $.plot($('#dm-graph'), [{
-            data:dat,
-            points:{show:true}
-    }]);
+            data: dat,
+            points:{show:true},
+            grid: { minBorderMargin: 10}}]
+    );
 }
 
 /* 

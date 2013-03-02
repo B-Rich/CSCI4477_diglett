@@ -36,9 +36,9 @@ and open the template in the editor.
     </script>
 
     <script type="text/javascript" src="./js/main.js"></script> 
+    <script type="text/javascript" src="./js/chris.js"></script>
     <!--
     <script type="text/javascript" src="js/glavin.js"></script>
-    <script type="text/javascript" src="./js/chris.js"></script>
     <script type="text/javascript" src="./js/dawson.js"></script>
     -->
 
@@ -48,7 +48,10 @@ and open the template in the editor.
     <header >
       <font id="dig-title" >{ diglett }</font>
       <font id="dig-slogan" >Deep data analysis.</font>
+      <!--
       <button id="random-button" onclick="genRandData();">Generate Random Data</button>
+      -->
+      <img id="random-button" src="image/media-shuffle.png" onclick="genRandData();" />
       <img id="dig-refresh-button" src="image/Refresh.png" onclick="refreshDataClick();" />
     </header>
 
@@ -56,6 +59,17 @@ and open the template in the editor.
 
       <table id="dig-visTable">
         <tr>
+          <td>
+            <div id="dm-filePanel" class="">
+              <form id="dm-filePanelForm">
+                <select id="filePanel" size="4">
+                  <option value="1">One</option>
+                </select>
+              </form>
+              <button id="upload-button">Upload</button>
+              <button id="download-button">Download</button>
+            </div>
+          </td>
           <td>
             <div id="graphContainer">
               <div id="dm-graph" class=""></div>
@@ -69,11 +83,7 @@ and open the template in the editor.
 
       <div id="options-panel" style="">
 
-        <div id="" class="block" style="width: 15%;">
-
-          <div class="" style="width:100%;">
-            <button id="upload-button">Upload</button>
-          </div>
+        <div class="block" style="width: 15%; height: 100%">
 
           <div id="select-fields">
             <div class="axis-select">
@@ -95,13 +105,7 @@ and open the template in the editor.
                 <option value="4">F4</option>
               </select>
             </div>
-
           </div>
-
-          <div class="" style="clear:left; width:100%;">
-            <button id="download-button" onclick="alert('Dawson, WTF. Get workin\'!');">Download</button>
-          </div>
-
         </div>
 
         <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
