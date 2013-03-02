@@ -1,0 +1,82 @@
+/* 
+    Document   : style.css
+    Created on : 19-Feb-2013, 10:27:35 PM
+    Author     : dawson
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    background-color: #F8F8F2;
+    background-image: url("../image/char.jpg");
+}
+
+root { 
+    display: block;
+    background-color: #F8F8F2;
+}
+
+* {
+    /* Recommend from http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+footer {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+footer li {
+    display: inline;
+    list-style-type: none;
+    margin: 0px 10px 0px 10px;
+}
+
+div.page {
+}
+
+#dig-visTable {
+    margin-bottom: 15px;
+    width: 100%;
+    height:100%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+}
+
+input[type="submit"], button, #options-toggle {
+    background: -webkit-gradient(linear, left top, left bottom, 
+      color-stop(0%,rgba(13,14,14,1.0)), color-stop(50%,rgba(55,59,62,1.0)), 
+      color-stop(51%,rgba(55,59,62,1.0)), color-stop(100%,rgba(13,14,14,1.0))); /* Chrome,Safari4+ */
+    background-color: rgba(13,14,14, 1.0);
+    color: white;
+    font-weight: bold;
+    width:100%;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+input #random-button{
+    background: -webkit-gradient(linear, left top, left bottom, 
+      color-stop(0%,rgba(13,14,14,1.0)), color-stop(50%,rgba(55,59,62,1.0)), 
+      color-stop(51%,rgba(55,59,62,1.0)), color-stop(100%,rgba(13,14,14,1.0))); /* Chrome,Safari4+ */
+    float: right;
+    width: 48px;
+    height: 48px;
+    margin: 0 10px 0 10px;
+    
+    /* background-color: rgba(14,14,14,1.0); */
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#dig-visTable td:not(#dm-stats-panel) {
+  padding: 0 20px 0 0;
+}
+
+#graphContainer, #dm-filePanel, #dm-stats{
+  box-shadow: 6px 6px 10px 1px #888888;
+}

@@ -9,17 +9,25 @@ and open the template in the editor.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="style/style.css">
     <link rel="stylesheet" type="text/css" href="style/upload-dialog.css">
-    <link rel="stylesheet" type="text/css" href="style/header.css">
+    <link rel="stylesheet" type="text/css" href="style/header_footer.css">
+    <link rel="stylesheet" type="text/css" href="style/graph.css">
+    <link rel="stylesheet" type="text/css" href="style/options.css">
+    <link rel="stylesheet" type="text/css" href="style/results.css">
+    <link rel="stylesheet" type="text/css" href="style/filePanel.css">
+    <link rel="stylesheet" type="text/css" href="style/general.css">
+    <link rel="stylesheet" type="text/css" href="js/libs/jqTree/jqtree.css">
 
     <!-- JavaScript -->
     <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
     <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
     <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
-
+    <script src="js/libs/jqTree/tree.jquery.js"></script>
+    
     <!-- Global Variables -->
     <script>
+      var origHeight = 0;
+      var socket = io.connect('http://localhost:1337');
       var
               dataSet = {},
               DEBUG = true;
@@ -34,34 +42,44 @@ and open the template in the editor.
         }
       }
     </script>
-
-    <script type="text/javascript" src="./js/main.js"></script> 
-    <!--
-    <script type="text/javascript" src="js/glavin.js"></script>
-    <script type="text/javascript" src="./js/chris.js"></script>
-    <script type="text/javascript" src="./js/dawson.js"></script>
-    -->
+    <script type="text/javascript" src="./js/uploader.js"></script>
+    <script type="text/javascript" src="./js/graph.js"></script>
+    <script type="text/javascript" src="./js/options.js"></script>
+    <script type="text/javascript" src="./js/styler.js"></script>
+    <script type="text/javascript" src="./js/stats.js"></script>
 
   </head>
   <body>
-
     <header >
-      <font id="dig-title" >{ diglett }</font>
-      <font id="dig-slogan" >Deep data analysis.</font>
-      <button id="random-button" onclick="genRandData();">Generate Random Data</button>
-      <img id="dig-refresh-button" src="image/Refresh.png" onclick="refreshDataClick();" />
+      <span id="dig-title">{ diglett }</span>
+      <span id="dig-slogan">Deep data analysis.</span>
+      <img id="random-button" src="image/media-shuffle.png" title="Generate Random Data" onclick="genRandData();" />
+      <img id="dig-refresh-button" src="image/Refresh.png" title="Refresh Graph" onclick="refreshDataClick();" />
     </header>
 
     <div id="page">
 
       <table id="dig-visTable">
         <tr>
-          <td>
-            <div id="graphContainer">
-              <div id="dm-graph" class=""></div>
+          <td id="dm-file">
+            <div id="dm-filePanel" class="">
+              <form id="dm-filePanelForm">
+                <select id="filePanel" size="4">
+                  <option value="1">Default.csv</option>
+                </select>
+              </form>
+              <button id="upload-button">Upload</button>
+              <button id="download-button">Download</button>
             </div>
           </td>
-          <td>
+          
+          <td id="dm-graph-box">
+            <div id="graphContainer" class="graphContainer">
+              <div id="dm-graph" class="graphContainer"></div>
+            </div>
+          </td>
+         
+          <td id="dm-stats-panel">
             <div id="dm-stats" class=""></div>
           </td>
         </tr>
@@ -69,15 +87,11 @@ and open the template in the editor.
 
       <div id="options-panel" style="">
 
-        <div id="" class="block" style="width: 15%;">
-
-          <div class="" style="width:100%;">
-            <button id="upload-button">Upload</button>
-          </div>
+        <div class="block" style="width: 15%; height: 100%">
 
           <div id="select-fields">
             <div class="axis-select">
-              <label for="x-axis-select">Select X-Axis Field</label>
+              <label for="x-axis-select"><b>Select X-Axis Field</b></label>
               <select id="x-axis-select" onchange="updateScreen();">
                 <option value="1" selected="selected">F1</option>
                 <option value="2">F2</option>
@@ -87,7 +101,7 @@ and open the template in the editor.
             </div>
             <hr />
             <div class="axis-select">
-              <label for="y-axis-select">Select Y-Axis Field</label>
+              <label for="y-axis-select"><b>Select Y-Axis Field</b></label>
               <select id="y-axis-select" onchange="updateScreen();">
                 <option value="1">F1</option>
                 <option value="2" selected="selected">F2</option>
@@ -95,28 +109,21 @@ and open the template in the editor.
                 <option value="4">F4</option>
               </select>
             </div>
-
           </div>
-
-          <div class="" style="clear:left; width:100%;">
-            <button id="download-button" onclick="alert('Dawson, WTF. Get workin\'!');">Download</button>
-          </div>
-
         </div>
 
         <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
+          <div class="block" style="clear: left; width: 100%;">
+            <span>Display Options</span><br />
 
-          <div class="block" style="clear:left; width: 100%;">
-            <span>Display options / As Dawson calls, "algorithms" </span><br />
-
-            <label><input type="checkbox" id="option1" >Plot Best Fit</label><br /> 
-            <label><input type="checkbox" id="option2" >Draw Cluster Spheres</label><br /> 
-            <label><input type="checkbox" id="option3" >Display third option</label><br /> 
+            <label><input type="checkbox" id="option1" >Phase 2 Feature 1</label><br /> 
+            <label><input type="checkbox" id="option2" >Phase 2 Feature 2</label><br /> 
+            <label><input type="checkbox" id="option3" >Phase 2 Feature 3</label><br /> 
           </div>
 
           <div class="block" style="width: 100%; clear:left;">
-            <label>Number of clusters: <input type="number" name="clusterCount" value="2" /></label><br />
-            <label>Number of iterations: <input type="number"  name="iterationCount" value="1000"/> </label><br />
+            <label><b>Number of clusters: &nbsp;&nbsp;&nbsp;</b><input type="number" id="clusterCount" name="clusterCount" value="2" /></label><br />
+            <label><b>Number of iterations: </b><input type="number"  id="iterationCount" name="iterationCount" value="1000"/> </label><br />
           </div>
         </div>
       </div>

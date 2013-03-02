@@ -3,20 +3,18 @@
  * Feb 20, 2013
  */
 
-var socket = io.connect('http://localhost:8080');
-
 // recieve data from server
 socket.on('push data', function (data) {
         
     loggg('push recieved');
     if (data !== undefined && data !== null) {
         dataSet = data;
+        formatInterface();
     }
 });
 
 function refreshDataClick() {
     socket.emit('pull data');
-    formatInterface();
 }
 
 /* uploads the csv file to the server and then

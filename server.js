@@ -37,8 +37,10 @@ var
         qs = require('querystring'),
         express = require('express'),
         connect = require('connect'),
-        cookie = require('cookie'),
-        spawn = require('child_process').spawn;
+        cookie = require('cookie');
+
+// kmeans lib
+var kmeans = require('./node/kmeans').kmeans_2d;
 
 // ----------------------------------------------------------------------------
 // START Server
@@ -149,7 +151,7 @@ function parse_data(file) {
                if (fileData[q] === undefined) {
                    fileData[q] = [];
                }
-               fileData[q][i] = entries[q];
+               fileData[q][i] = parseFloat(entries[q]);
            }
         }
         return fileData;    // return my dataset
@@ -248,27 +250,15 @@ io.sockets.on('connection', function (socket) {
      */
     socket.on('kmeans cluster', function(data) {
       
-      if (data.x === undefined || data.y === undefined ||
-            data.maxIter === undefined || data.centers === undefined) {
-        socket.emit('server error', 
-          {
-            id : 501,
-            title : 'cluster data error',
-            message : 'Undefined fields in transmitted kmeans data object.'
-          });
-          
-          return ;
+      try {
+        console.log('KMEANS CLUSTER');
+        var km = kmeans(data);
+        
+        socket.emit('kmeans cluster', km);
+        
+      } catch (err) {
+        socket.emit('server error', err);
       }
-      
-      data.xstr = '' + data.x[0],
-      data.ystr = '' + data.y[0];
-      
-      for (var i = 1; i < data.x.length && i < data.y.length; i++) {
-        data.xstr += ',' + data.x[i];
-        data.ystr += ',' + data.y[i];
-      }
-      
-      parseR_kmeans('./rscript/kmeans.R.tmpl', data);
     });
 });
 
