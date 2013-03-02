@@ -71,3 +71,7 @@ input #random-button{
     border: 1px solid black;
     border-radius: 10px;
 }
+
+#dig-visTable td {
+  padding: 0 20px 0 0;
+}
