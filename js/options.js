@@ -17,6 +17,7 @@ $(document).ready(function() {
       //var origHeight = options.height();
       options.height(0);
       options.show();
+      options.stop();
       options.animate({height: origHeight}, 1000);
     }
     else
@@ -25,24 +26,24 @@ $(document).ready(function() {
       // Hide
       options.removeClass("active");
       //var origHeight = options.height();
+      options.stop();
+      options.show();
       options.animate({height: 0}, 1000,
               function() {
                 options.hide();
                 options.height(origHeight);
               });
-      options.show();
     }
   });
   
-  $("#options-panel input").click( function() { updateScreen(); } );
+  $("#options-panel input").click( function() {   if ( !$.isEmptyObject(dataSet) ) updateScreen(); } );
 
-  
 });
 
 /* 
  * Specify the column selected by the user
  */
-function selectData(){
+function selectData() {
     console.log(arguments.callee.caller.name);
 
     var colX = $('#x-axis-select option:selected');

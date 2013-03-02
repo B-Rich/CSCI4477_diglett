@@ -3,45 +3,36 @@
  * and open the template in the editor.
  */
 
-function displayStats(stats)
+
+function graphClusters(stats)
 {
-  var data = [];
-  var options;
-  var colours = [];
-
-
-  for (var i = 0; i <= 60; i += 1) {
-    d1.push([i, parseInt(Math.random() * 30 - 10)]);
-    d2.push([i, parseInt(Math.random() * 30 - 10)]);
+  var allData = [];
+  for (var center in stats) {
+    console.log(center);
+    var cluster = stats[center];
+    console.log(cluster);
+    var clusterData = [];
+    for (var p = 0; p < cluster.x.length; p++) {
+      clusterData.push([ cluster.x[p], cluster.y[p] ]);
+    }
+    console.log(clusterData);
+    allData.push( { data : [ clusterData ] } );
+    console.log(allData);
   }
-
-
-  $.plot($("#dm-graph"), [{
-      data: d1,
-      threshold: {
-        below: 5,
-        color: "rgb(200, 20, 30)"
-      }},
-    {
-      data: d2,
-      threshold: {
-        below: -5,
-        color: "rgb(250, 0, 0)"
-      }}], {
-    grid: {
-      hoverable: true,
-      borderWidth: 1,
-      minBorderMargin: 10
-    },
-    colors: ["rgb(44,55,66)", "rgb(90,2,100)"]
+  
+  console.log(allData);
+  $.plot($("#dm-graph"), [ allData ], 
+    { grid: {
+        hoverable: true,
+        borderWidth: 1,
+        minBorderMargin: 10
+    }
   });
 
 }
 
 function dataToTreeDataPoints(cluster) {
-  
   var pointSet = [];
-  
   for (var i = 0; i < cluster.x.length; i++) {
     pointSet.push({ 
       label : 'point ' + i,
@@ -51,7 +42,6 @@ function dataToTreeDataPoints(cluster) {
       ]
     });
   }
-  
   return pointSet;
 }
 
@@ -86,9 +76,7 @@ function buildTreeKmeansData(data) {
 
 var initTree = true;
 socket.on("kmeans cluster", function(data) { 
-  
-  console.log(buildTreeKmeansData(data));
-  
+  console.log(buildTreeKmeansData(data));  
   if ($("#dm-stats ul").length === 0) {
    
     $('#dm-stats').tree({
@@ -98,6 +86,7 @@ socket.on("kmeans cluster", function(data) {
     });
     initTree = false;
   } 
-    
   $('#dm-stats').tree('loadData', buildTreeKmeansData(data));
+  
+  //graphClusters(data);
 });

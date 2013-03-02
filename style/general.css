@@ -73,10 +73,18 @@ input #random-button{
     border-radius: 10px;
 }
 
+#dig-visTable td div {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+#graphContainer, #dm-filePanel, #dm-stats {
+  box-shadow: 6px 6px 10px 1px #888888;
+}
+
 #dig-visTable td:not(#dm-stats-panel) {
   padding: 0 20px 0 0;
 }
 
-#graphContainer, #dm-filePanel, #dm-stats{
-  box-shadow: 6px 6px 10px 1px #888888;
-}
+
