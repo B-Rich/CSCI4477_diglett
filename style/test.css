@@ -1,0 +1,118 @@
+/* 
+    Document   : test
+    Created on : Mar 1, 2013, 9:17:39 PM
+    Author     : Owner
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+root { 
+    display: block;
+}
+
+* {
+    /* Recommend from http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+header, footer {
+    border: 1px solid black;
+    width: 100%;
+    background-color: black;
+   
+    color:red;
+}
+
+p{
+padding-left: 300px;
+
+}
+
+footer li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+    color:red;
+    letter-spacing:1px;
+    font-family:Courier, monospace;
+    font-style:bold;
+}
+
+div#logo {
+float: left;
+padding: 0px;
+padding-bottom:5px;
+}
+
+div.page {
+   
+}
+
+.block {
+    display: inline-block;
+    padding: 5px;
+    color:white;
+    background-image: url('fk.jpg');
+   }
+
+
+div#select-fields {
+    margin: 5px 0;
+    padding: 5px 0;
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    text-align: center;  
+    height: 100%; 
+    width: 100%;
+    background-color:#909090;
+}
+
+.axis-select {
+    display: block; 
+    padding: 0;
+    margin: 0;
+    color:red;
+    background-color:black;
+}
+.axis-select span {
+    display: block; 
+    width: 100%;
+
+}
+.axis-select select {
+    display: block; 
+    height: 10em;
+    width: 100%;
+}
+
+
+div#options-panel {
+    width: 100%;
+    border: 2px solid black;
+    background-image:url('black.jpg');
+    display: inline-block;
+}
+
+button#upload-button, button#download-button {
+    width: 100%;
+    background-color: black;
+    color:red;
+   border: 3px solid red;
+   font-family:Times, serif;
+   font-size: 20px;
+}
+
+div#options-toggle {
+    text-align: center;
+    color:red;
+    padding: 5px;
+    background-color: black;
+    margin: 5px 0;
+    font-size:20px;
+}

@@ -4,150 +4,151 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>diglett</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <title>diglett</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="style/style.css">
-        <link rel="stylesheet" type="text/css" href="style/upload-dialog.css">
-        <link rel="stylesheet" type="text/css" href="style/header.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="style/upload-dialog.css">
+    <link rel="stylesheet" type="text/css" href="style/header.css">
 
-        <!-- JavaScript -->
-        <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
-        <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
-        <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
+    <!-- JavaScript -->
+    <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
+    <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
+    <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
 
-        <script>
-<!-- Global Variables -->
-            var
-                    dataSet = {},
-                    DEBUG = true;
+    <!-- Global Variables -->
+    <script>
+      var
+              dataSet = {},
+              DEBUG = true;
 
-            window.onload = function() {
-                setupUploadFile();
-            };
+      window.onload = function() {
+        setupUploadFile();
+      };
 
-            function loggg(message) {
-                if (DEBUG === true) {
-                    console.log(message);
-                }
-            }
-        </script>
+      function loggg(message) {
+        if (DEBUG === true) {
+          console.log(message);
+        }
+      }
+    </script>
 
-        <script type="text/javascript" src="./js/main.js"></script> 
-        <!--
-        <script type="text/javascript" src="js/glavin.js"></script>
-        <script type="text/javascript" src="./js/chris.js"></script>
-        <script type="text/javascript" src="./js/dawson.js"></script>
-        -->
+    <script type="text/javascript" src="./js/main.js"></script> 
+    <!--
+    <script type="text/javascript" src="js/glavin.js"></script>
+    <script type="text/javascript" src="./js/chris.js"></script>
+    <script type="text/javascript" src="./js/dawson.js"></script>
+    -->
 
-    </head>
-    <body>
+  </head>
+  <body>
 
-        <header >
-            <font id="dig-title" >{ diglett }</font>
-            <font id="dig-slogan" >Deep data analysis.</font>
-            <img id="dig-refresh-button" src="image/Refresh.png" onclick="refreshDataClick();" />
-        </header>
+    <header >
+      <font id="dig-title" >{ diglett }</font>
+      <font id="dig-slogan" >Deep data analysis.</font>
+      <button id="random-button" onclick="genRandData();">Generate Random Data</button>
+      <img id="dig-refresh-button" src="image/Refresh.png" onclick="refreshDataClick();" />
+    </header>
 
-        <div id="page">
+    <div id="page">
 
-            <table id="dig-visTable">
-                <tr>
-                    <td>
-                        <div id="graphContainer">
-                            <div id="dm-graph" class=""></div>
-                        </div>
-                    </td>
-                    <td>
-                        <div id="dm-stats" class=""></div>
-                    </td>
-                </tr>
-            </table>
+      <table id="dig-visTable">
+        <tr>
+          <td>
+            <div id="graphContainer">
+              <div id="dm-graph" class=""></div>
+            </div>
+          </td>
+          <td>
+            <div id="dm-stats" class=""></div>
+          </td>
+        </tr>
+      </table>
 
-            <div id="options-panel" style="">
+      <div id="options-panel" style="">
 
-                <div id="" class="block" style="width: 15%;">
+        <div id="" class="block" style="width: 15%;">
 
-                    <div class="" style="width:100%;">
-                        <button id="upload-button">Upload</button>
-                    </div>
+          <div class="" style="width:100%;">
+            <button id="upload-button">Upload</button>
+          </div>
 
-                    <div id="select-fields">
-                        <div class="axis-select">
-                            <label for="x-axis-select">Select X-Axis Field</label>
-                            <select id="x-axis-select" onchange="updateScreen();">
-                                <option value="1" selected="selected">F1</option>
-                                <option value="2">F2</option>
-                                <option value="3">F3</option>
-                                <option value="4">F4</option>
-                            </select>
-                        </div>
-                        <hr />
-                        <div class="axis-select">
-                            <label for="y-axis-select">Select Y-Axis Field</label>
-                            <select id="y-axis-select" onchange="updateScreen();">
-                                <option value="1">F1</option>
-                                <option value="2" selected="selected">F2</option>
-                                <option value="3">F3</option>
-                                <option value="4">F4</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="" style="clear:left; width:100%;">
-                        <button id="download-button" onclick="alert('Dawson, WTF. Get workin\'!');">Download</button>
-                    </div>
-
-                </div>
-
-                <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
-
-                    <div class="block" style="clear:left; width: 100%;">
-                        <span>Display options / As Dawson calls, "algorithms" </span><br />
-
-                        <label><input type="checkbox" id="option1" ></input>Plot Best Fit</label><br /> 
-                        <label><input type="checkbox" id="option2" ></input>Draw Cluster Spheres</label><br /> 
-                        <label><input type="checkbox" id="option3" ></input>Display third option</label><br /> 
-                    </div>
-
-                    <div class="block" style="width: 100%; clear:left;">
-                        <label>Number of clusters: <input type="number" name="clusterCount" placeholder="2" value="2" /> </label><br />
-                        <label>Number of iterations: <input type="number"  name="iterationCount" value="1000"/> </label><br />
-                    </div>
-                </div>
+          <div id="select-fields">
+            <div class="axis-select">
+              <label for="x-axis-select">Select X-Axis Field</label>
+              <select id="x-axis-select" onchange="updateScreen();">
+                <option value="1" selected="selected">F1</option>
+                <option value="2">F2</option>
+                <option value="3">F3</option>
+                <option value="4">F4</option>
+              </select>
+            </div>
+            <hr />
+            <div class="axis-select">
+              <label for="y-axis-select">Select Y-Axis Field</label>
+              <select id="y-axis-select" onchange="updateScreen();">
+                <option value="1">F1</option>
+                <option value="2" selected="selected">F2</option>
+                <option value="3">F3</option>
+                <option value="4">F4</option>
+              </select>
             </div>
 
-            <div id="options-toggle" onclick=''>Toggle Options</div>
+          </div>
+
+          <div class="" style="clear:left; width:100%;">
+            <button id="download-button" onclick="alert('Dawson, WTF. Get workin\'!');">Download</button>
+          </div>
+
         </div>
 
-        <!-- Custom upload file dialog -->
-        <div id="dm-file-upload" style="left: 494px; top: 197px;">
-            <div id="dm-file-content">
-                <h4>Upload a CSV</h4>
-                <form 
-                    id="dm-upload-form"
-                    method='POST' 
-                    enctype='multipart/form-data'
-                    action="/"
-                    >
-                    <input id='dm-file-input' type='file' name="data" ></input>
-                </form>
-                <button id='dm-submit-button' onclick="uploadFile();">Upload CSV</button>
-            </div>
-        </div>
+        <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
 
-        <footer>
-            <div>
-                <ul>
-                    <li>Dawson Reid</li>
-                    <li>Asha Rani</li>
-                    <li>Chris Ouellet</li>
-                    <li>Glavin Wiechert</li>
-                </ul>
-            </div>
-        </footer>
-    </body>
+          <div class="block" style="clear:left; width: 100%;">
+            <span>Display options / As Dawson calls, "algorithms" </span><br />
+
+            <label><input type="checkbox" id="option1" >Plot Best Fit</label><br /> 
+            <label><input type="checkbox" id="option2" >Draw Cluster Spheres</label><br /> 
+            <label><input type="checkbox" id="option3" >Display third option</label><br /> 
+          </div>
+
+          <div class="block" style="width: 100%; clear:left;">
+            <label>Number of clusters: <input type="number" name="clusterCount" value="2" /></label><br />
+            <label>Number of iterations: <input type="number"  name="iterationCount" value="1000"/> </label><br />
+          </div>
+        </div>
+      </div>
+
+      <div id="options-toggle" onclick=''>Toggle Options</div>
+    </div>
+
+    <!-- Custom upload file dialog -->
+    <div id="dm-file-upload" style="left: 494px; top: 197px;">
+      <div id="dm-file-content">
+        <h4>Upload a CSV</h4>
+        <form 
+          id="dm-upload-form"
+          method='POST' 
+          enctype='multipart/form-data'
+          action="/"
+          >
+          <input id='dm-file-input' type='file' name="data" />
+        </form>
+        <button id='dm-submit-button' onclick="uploadFile();">Upload CSV</button>
+      </div>
+    </div>
+
+    <footer>
+      <div>
+        <ul>
+          <li>Dawson Reid</li>
+          <li>Asha Rani</li>
+          <li>Chris Ouellet</li>
+          <li>Glavin Wiechert</li>
+        </ul>
+      </div>
+    </footer>
+  </body>
 </html>
