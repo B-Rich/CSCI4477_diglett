@@ -16,13 +16,15 @@ function graphClusters(stats)
       clusterData.push([ cluster.x[p], cluster.y[p] ]);
     }
     console.log(clusterData);
-    allData.push( { data : [ clusterData ] } );
+    allData.push( { data : clusterData } );
     console.log(allData);
   }
   
   console.log(allData);
-  $.plot($("#dm-graph"), [ allData ], 
-    { grid: {
+  $.plot($("#dm-graph"), allData, 
+    {       
+      points: {show: true},
+      grid: {
         hoverable: true,
         borderWidth: 1,
         minBorderMargin: 10
@@ -88,5 +90,5 @@ socket.on("kmeans cluster", function(data) {
   } 
   $('#dm-stats').tree('loadData', buildTreeKmeansData(data));
   
-  //graphClusters(data);
+  graphClusters(data);
 });
