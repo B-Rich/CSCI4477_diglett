@@ -6,7 +6,8 @@
 function displayStats(stats)
 {
   var statsPanel = $("#dm-stats");
-  var key = stats.key; // FIX ME
-  var value = stats.value; // FIX ME
-  statsPanel.find("#"+key).append(value);
+  console.log(stats);
+  
 }
+
+socket.on("kmeans cluster", function(data) { displayStats(data); });

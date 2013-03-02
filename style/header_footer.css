@@ -22,6 +22,7 @@ header {
 }
 
 #dig-slogan {
+    font-weight: bold;
     font-style:italic;
     margin-left: 20px;
 }
