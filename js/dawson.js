@@ -16,9 +16,7 @@ socket.on('push data', function (data) {
 
 function refreshDataClick() {
     socket.emit('pull data');
-    if (typeof formatInterface == 'function') {
-        formatInterface();
-    }
+    formatInterface();
 }
 
 /* uploads the csv file to the server and then
