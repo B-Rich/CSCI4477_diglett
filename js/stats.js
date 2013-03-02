@@ -84,13 +84,20 @@ function buildTreeKmeansData(data) {
   return treeData;
 }
 
+var initTree = true;
 socket.on("kmeans cluster", function(data) { 
   
   console.log(buildTreeKmeansData(data));
   
-  $('#dm-stats').tree({
-      data: buildTreeKmeansData(data),
+  if ($("#dm-stats ul").length === 0) {
+   
+    $('#dm-stats').tree({
+      data : buildTreeKmeansData(data),
       autoOpen: false,
       dragAndDrop: false
-    }); 
+    });
+    initTree = false;
+  } 
+    
+  $('#dm-stats').tree('loadData', buildTreeKmeansData(data));
 });
