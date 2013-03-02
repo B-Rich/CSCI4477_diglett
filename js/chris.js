@@ -17,6 +17,8 @@ function createDataSet(colNum, rowNum) {
  * Make an aray of pairs from the columns to be plotted 
  */
 function formatData(colX, colY) {
+    console.log(arguments.callee.caller.name);
+
     var dat = [];
     for(var i = 0; i < dataSet[colX].length; i++) {
        dat.push([(dataSet[colX])[i], (dataSet[colY])[i]]);
@@ -28,6 +30,8 @@ function formatData(colX, colY) {
  * Specify the column selected by the user
  */
 function selectData(){
+    console.log(arguments.callee.caller.name);
+
     var colX = $('#x-axis-select option:selected');
     var colY = $('#y-axis-select option:selected');
     return formatData(colX.val(), colY.val());
@@ -49,6 +53,7 @@ function updateScreen() {
  * Format the axis-select elements to match the given dataSet
  */
 function formatInterface() {
+  console.log(arguments.callee.caller.name);
     displayFieldList();
     updateScreen();
 }
@@ -57,6 +62,8 @@ function formatInterface() {
  * Format the axis-select elements to match the given dataSet
  */
 function genRandData() {
+    console.log(arguments.callee.caller.name);
+
     createDataSet(100,100);
     formatInterface();
     updateScreen();

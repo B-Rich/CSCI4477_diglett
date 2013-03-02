@@ -13,11 +13,6 @@ and open the template in the editor.
     <link rel="stylesheet" type="text/css" href="style/upload-dialog.css">
     <link rel="stylesheet" type="text/css" href="style/header.css">
 
-    <!-- JavaScript -->
-    <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
-    <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
-    <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
-
     <!-- Global Variables -->
     <script>
       var
@@ -35,12 +30,17 @@ and open the template in the editor.
       }
     </script>
 
-    <script type="text/javascript" src="./js/main.js"></script> 
-    <script type="text/javascript" src="./js/chris.js"></script>
+    <!-- JavaScript -->
+    <script src='js/libs/jquery-1.9.0/jquery.min.js'></script>
+    <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
+    <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
+
     <!--
-    <script type="text/javascript" src="js/glavin.js"></script>
-    <script type="text/javascript" src="./js/dawson.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script> 
     -->
+    <script type="text/javascript" src="./js/chris.js"></script>
+    <script type="text/javascript" src="./js/glavin.js"></script>
+    <script type="text/javascript" src="./js/dawson.js"></script>
 
   </head>
   <body>
@@ -48,9 +48,6 @@ and open the template in the editor.
     <header >
       <font id="dig-title" >{ diglett }</font>
       <font id="dig-slogan" >Deep data analysis.</font>
-      <!--
-      <button id="random-button" onclick="genRandData();">Generate Random Data</button>
-      -->
       <img id="random-button" src="image/media-shuffle.png" onclick="genRandData();" />
       <img id="dig-refresh-button" src="image/Refresh.png" onclick="refreshDataClick();" />
     </header>
@@ -60,6 +57,7 @@ and open the template in the editor.
       <table id="dig-visTable">
         <tr>
           <td>
+<<<<<<< HEAD
             <div id="dm-filePanel" class="">
               <form id="dm-filePanelForm">
                 <select id="filePanel" size="4">
@@ -73,10 +71,35 @@ and open the template in the editor.
           <td>
             <div id="graphContainer">
               <div id="dm-graph" class=""></div>
+=======
+            <div id="graphContainer" class="graphContainer">
+              <div id="dm-graph" class="graphContainer"></div>
+>>>>>>> develop
             </div>
           </td>
           <td>
-            <div id="dm-stats" class=""></div>
+            <div id="dm-stats" class="">
+              <table border="1">
+                <tr><td>Cluster</td>
+                  <td><span id="cluster"></span>
+                </td></tr>
+                <tr><td>Centers<tr/>
+                <td><span id="centers"></span></td>
+              </tr>
+                <tr><td>
+                    Withinsss: <span id="totss"></span> <br />
+                </td></tr>
+                <tr><td>
+                    Tot.Withinss: <span id="totWithinss"></span> <br />
+                </td></tr>
+                <tr><td>
+                    Betweenss: <span id="betweenss"></span> <br />
+                </td></tr>
+                <tr><td>
+                    Size: <span id="size"></span> <br />
+                </td></tr>
+              </table>
+            </div>
           </td>
         </tr>
       </table>
