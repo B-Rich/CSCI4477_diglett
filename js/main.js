@@ -8,7 +8,7 @@
  * ----------------------------------------------------------------------------
  */
 
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://localhost:1337');
 
 // recieve data from server
 socket.on('push data', function(data) {

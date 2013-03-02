@@ -37,8 +37,8 @@ var
         qs = require('querystring'),
         express = require('express'),
         connect = require('connect'),
-        cookie = require('cookie');
-
+        cookie = require('cookie'),
+        spawn = require('child_process').spawn;
 
 // ----------------------------------------------------------------------------
 // START Server
@@ -113,7 +113,7 @@ app.post('/', function (request, response){
      response.sendfile('index.html');
 });
 
-server.listen(8080);
+server.listen(1337);
 
 logger.log('Server started.');
 
@@ -159,6 +159,64 @@ function parse_data(file) {
     }
 }
 
+function parseR_kmeans(file, data) {
+  
+  fs.readFile(file, 'utf8', function (err, fileContent) {
+    
+    // parse the object into the template file
+    for (var param in data) {      
+      var rex = RegExp('\{' + param +  '\}', 'm');
+
+      // replace all occurances of regex
+      while (fileContent.match(rex)) {
+        fileContent = fileContent.replace(rex, data[param]);
+      }
+    }
+    
+    // setup R process
+    /*
+    var R = spawn('R');
+    R.stdout.setEncoding('utf8');
+    R.runCmd = true;
+    
+    R.stdin.on('drian', function() {
+      console.log('DRAIN');
+    });
+    R.stdin.on('close', function () {
+      console.log('IN CLOSE');
+    });
+    R.stdin.on('pipe', function () {
+      console.log('PIPE');
+    });
+    R.stdin.on('error', function () {
+      console.log('IN ERROR');
+    });
+    R.stdout.on('close', function () {
+      console.log('OUT CLOSE');
+    });
+    R.stdout.on('end', function () {
+      console.log('END');
+    });
+    R.stdout.on('error', function () {
+      console.log('OUT ERROR');
+    });
+    
+    // output 
+    R.stdout.on('data', function(msg) {
+      console.log(msg);
+    });
+    
+    var lines = fileContent.split('\n');
+    for (var i in lines) {
+      //console.log(JSON.stringify(lines[i] + '\n'));
+      R.stdin.write('4;', 'utf8');
+    }
+    */
+   
+    
+  });
+};
+
 logger.log('Starting socket.');
 
 io = require('socket.io').listen(server);
@@ -180,6 +238,37 @@ io.sockets.on('connection', function (socket) {
     // testing function
     socket.on('ding', function () {
         console.log('DING : ' + socket.handshake.sessionID);
+    });
+    
+    /*
+     * kmeans cluster 
+     * 
+     * Pipes data transmitted from client through R and emits 
+     * the parsed R response to the client.
+     */
+    socket.on('kmeans cluster', function(data) {
+      
+      if (data.x === undefined || data.y === undefined ||
+            data.maxIter === undefined || data.centers === undefined) {
+        socket.emit('server error', 
+          {
+            id : 501,
+            title : 'cluster data error',
+            message : 'Undefined fields in transmitted kmeans data object.'
+          });
+          
+          return ;
+      }
+      
+      data.xstr = '' + data.x[0],
+      data.ystr = '' + data.y[0];
+      
+      for (var i = 1; i < data.x.length && i < data.y.length; i++) {
+        data.xstr += ',' + data.x[i];
+        data.ystr += ',' + data.y[i];
+      }
+      
+      parseR_kmeans('./rscript/kmeans.R.tmpl', data);
     });
 });
 
