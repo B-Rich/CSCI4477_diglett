@@ -19,8 +19,6 @@ root {
 div#select-fields {
     margin: 5px 0;
     padding: 5px 0;
-    border-top: 1px dotted black;
-    border-bottom: 1px dotted black;
     text-align: center;  
     height: 100%; 
     width: 100%;
@@ -51,6 +49,8 @@ div#options-panel {
     position: fixed;
     overflow: hidden;
     z-index: 10;
+    -moz-border-radius: 15px;
+    border-radius: 5px;
 }
 
 div#options-toggle {
@@ -63,4 +63,8 @@ div#options-toggle {
     padding: 5px 0 5px 0;
     -moz-border-radius: 15px;
     border-radius: 5px;
+}
+
+.block span {
+    font-weight: bold;
 }
