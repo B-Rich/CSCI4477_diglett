@@ -77,10 +77,10 @@ function resizePage()
 {
   // resize all of the elements in the page
   // occurs onload and resize
-
   console.log("Resize Page");
-  origHeight = $("#options-panel").height();
 
+  //=== Resize height
+  origHeight = $("#options-panel").height();
   $('.graphContainer').css({
     height: (
             $(window).height()
@@ -110,4 +110,12 @@ function resizePage()
     $.plot($('#dm-graph'), [{data: dat, points: {show: true}, grid: {minBorderMargin: 10}}]);
     //  $("#dm-graph canvas").height( $("dm-graph").height());
   }
+  
+  //=== Resize Width
+  // 20% / 50% / 30%
+  var maxWidth = $("table#dig-visTable").width();
+  $("td#dm-file").width(maxWidth*0.20);
+  $("td#dm-graph-box").width(maxWidth*0.50);
+  $("td#dm-stats").width(maxWidth*0.30);
+  
 }

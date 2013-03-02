@@ -82,6 +82,7 @@ function displayFieldList() {
      .attr(((c===1)?"checked":"not-checked"), ((c===1)?"checked":"")) )
      .append("F"+(c+1)) );
      */
+    
     xAxisSelect.append(
             $('<option />', {'value': c})
             .append("F" + (c + 1))
@@ -104,3 +105,5 @@ function displayFieldList() {
     updateScreen();
   });
 }
+
+$("#options-panel input").on('click', function() { updateScreen(); } );

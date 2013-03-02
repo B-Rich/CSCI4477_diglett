@@ -58,23 +58,25 @@ and open the template in the editor.
 
       <table id="dig-visTable">
         <tr>
-          <td>
+          <td id="dm-file">
             <div id="dm-filePanel" class="">
               <form id="dm-filePanelForm">
                 <select id="filePanel" size="4">
-                  <option value="1">One</option>
+                  <option value="1">Default.csv</option>
                 </select>
               </form>
               <button id="upload-button">Upload</button>
               <button id="download-button">Download</button>
             </div>
           </td>
-          <td>
+          
+          <td id="dm-graph-box">
             <div id="graphContainer" class="graphContainer">
               <div id="dm-graph" class="graphContainer"></div>
             </div>
           </td>
-          <td>
+          
+          <td id="dm-stats">
             <div id="dm-stats" class="">
               <table id="" border="1">
                 <tr>
@@ -138,9 +140,8 @@ and open the template in the editor.
         </div>
 
         <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
-
           <div class="block" style="clear:left; width: 100%;">
-            <span>Display options / As Dawson calls, "algorithms" </span><br />
+            <span>Display Options</span><br />
 
             <label><input type="checkbox" id="option1" >Plot Best Fit</label><br /> 
             <label><input type="checkbox" id="option2" >Draw Cluster Spheres</label><br /> 

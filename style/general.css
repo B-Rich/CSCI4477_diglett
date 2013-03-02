@@ -45,3 +45,7 @@ div.page {
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;
 }
+
+#dig-visTable td {
+  padding: 0 20px 0 0;
+}
