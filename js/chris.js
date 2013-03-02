@@ -53,6 +53,15 @@ function formatInterface() {
 }
 
 /* 
+ * Format the axis-select elements to match the given dataSet
+ */
+function genRandData() {
+    createDataSet(100,100);
+    formatInterface();
+    updateScreen();
+}
+
+/* 
  * Test function
  */
 function test_selectData() {
