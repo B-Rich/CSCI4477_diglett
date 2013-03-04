@@ -104,18 +104,24 @@ function resizePage()
             )});
   $("#options-panel").css({width: $("#options-toggle").width()});
   
-  if ( !$.isEmptyObject(dataSet) )
-  {
-    var dat = selectData();
-    $.plot($('#dm-graph'), [{data: dat, points: {show: true}, grid: {minBorderMargin: 10}}]);
-    //  $("#dm-graph canvas").height( $("dm-graph").height());
-  }
   
   //=== Resize Width
   // 20% / 50% / 30%
-  var maxWidth = $("table#dig-visTable").width();
-  $("td#dm-file").width(maxWidth*0.20);
-  $("td#dm-graph-box").width(maxWidth*0.50);
-  $("td#dm-stats").width(maxWidth*0.30);
+  var maxWidth = $("table#dig-visTable").width() - parseInt($("td#dm-graph-box").css('padding-right')) - parseInt($("td#dm-file").css('padding-right'));
+  //console.log(maxWidth);
+  //console.log( $("td#dm-graph-box").width() );
+  $("td#dm-file").css({ width: (maxWidth*0.20) });
+  $("td#dm-graph-box, .graphContainer, canvas").css({ width: (maxWidth*0.50) });
+  $("td#dm-stats-panel").width(maxWidth*0.30);
+  //console.log( $("td#dm-graph-box").width() );
+  
+  if ( !$.isEmptyObject(dataSet) )
+  {
+     updateScreen();
+    //var dat = selectData();
+    //$.plot($('#dm-graph'), [{data: dat, points: {show: true}, grid: {minBorderMargin: 10}}]);
+    //  $("#dm-graph canvas").height( $("dm-graph").height());
+  
+  }
   
 }

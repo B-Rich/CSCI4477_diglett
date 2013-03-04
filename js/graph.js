@@ -31,13 +31,13 @@ function formatData(colX, colY) {
  */
 function updateScreen() {
   var dat = selectData();
-  $.plot($('#dm-graph'), [{
-      data: dat,
+  $.plot($('#dm-graph'), [{data: dat}], {
       points: {show: true},
-      grid: {minBorderMargin: 10}}]
-          );
+      xaxis: { autoscaleMargin: 0.01 },
+      grid: { hoverable: true, labelMargin: 10, minBorderMargin: 20, borderWidth: 1, borderHeight: 1 }
+    });
   // Get the kMeans data
-  console.log("update stats2");
+  console.log("Update Stats");
   var maxIter = $("#iterationCount").val();
   var clustersCount = $("#clusterCount").val();
   

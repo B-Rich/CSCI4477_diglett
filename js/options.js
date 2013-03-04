@@ -5,49 +5,86 @@
 
 // Global variables
 $(document).ready(function() {
-  $("#options-panel").hide();
-  $("#options-toggle").on("click", function() {
-    console.log("Toggle Options");
+
+  
+  $("#options-panel input").click(function() {
+    if (!$.isEmptyObject(dataSet))
+      updateScreen();
+  });
+  
+  
+  // Options Panel
+  $("#options-panel").hide(); // Default
+  // Clicking inside of options panel
+  $("#options-toggle").click( function(event) {
+    toggleOptionsPanel();
+    event.stopPropagation(); // Prevent click event form occuring in $(document) 
+  });
+  $("#options-panel").click( function(event) {
+    event.stopPropagation(); // Prevent click event form occuring in $(document) 
+  });
+  // Click outside of options panel
+  $(document).click( function() {
+    console.log("Hide");
+    // Hide
     var options = $("#options-panel");
-    if (!options.hasClass("active"))
-    { // Is currently hidden
-      console.log("Show");
-      // Show
-      options.addClass("active");
-      //var origHeight = options.height();
-      options.height(0);
-      options.show();
-      options.animate({height: origHeight}, 1000);
-    }
-    else
-    { // Is current showing
-      console.log("Hide");
-      // Hide
+    if (options.hasClass("active"))
+    {
       options.removeClass("active");
       //var origHeight = options.height();
-      options.animate({height: 0}, 1000,
+      options.stop();
+      options.show();
+      options.animate({height: 0}, 500,
               function() {
                 options.hide();
                 options.height(origHeight);
-              });
-      options.show();
+      });
+      
     }
   });
-  
-  $("#options-panel input").click( function() { updateScreen(); } );
 
-  
 });
+
+function toggleOptionsPanel() {
+  console.log("Toggle Options");
+  var options = $("#options-panel");
+  if (!options.hasClass("active"))
+  { // Is currently hidden
+    console.log("Show");
+    // Show
+    options.addClass("active");
+    //var origHeight = options.height();
+    options.height(0);
+    options.show();
+    options.stop();
+    options.animate({height: origHeight}, 1000);
+  }
+  else
+  { // Is current showing
+    console.log("Hide");
+    // Hide
+    options.removeClass("active");
+    //var origHeight = options.height();
+    options.stop();
+    options.show();
+    options.animate({height: 0}, 1000,
+            function() {
+              options.hide();
+              options.height(origHeight);
+            });
+  }
+
+}
 
 /* 
  * Specify the column selected by the user
  */
-function selectData(){
-    console.log(arguments.callee.caller.name);
+function selectData() {
+  console.log(arguments.callee.caller.name);
 
-    var colX = $('#x-axis-select option:selected');
-    var colY = $('#y-axis-select option:selected');
-    return formatData(colX.val(), colY.val());
+  var colX = $('#x-axis-select option:selected');
+  var colY = $('#y-axis-select option:selected');
+  return formatData(colX.val(), colY.val());
 }
 
 function displayFieldList() {
@@ -86,7 +123,7 @@ function displayFieldList() {
      .attr(((c===1)?"checked":"not-checked"), ((c===1)?"checked":"")) )
      .append("F"+(c+1)) );
      */
-    
+
     xAxisSelect.append(
             $('<option />', {'value': c})
             .append("F" + (c + 1))
