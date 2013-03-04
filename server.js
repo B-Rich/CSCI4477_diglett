@@ -210,6 +210,7 @@ io.sockets.on('connection', function (socket) {
  * this makes the session ID accessible from the 
  * socket.on methods.
  */
+/*
 io.set('authorization', function (data, accept) {
     
     if (data.headers.cookie) {    
@@ -223,6 +224,7 @@ io.set('authorization', function (data, accept) {
        return accept('No cookie transmitted.', false);
     }
 });
+//*/
 
 // ----------------------------------------------------------------------------
 // END Socket
