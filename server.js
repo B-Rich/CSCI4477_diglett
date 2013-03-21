@@ -161,6 +161,64 @@ function parse_data(file) {
     }
 }
 
+function parseR_kmeans(file, data) {
+  
+  fs.readFile(file, 'utf8', function (err, fileContent) {
+    
+    // parse the object into the template file
+    for (var param in data) {      
+      var rex = RegExp('\{' + param +  '\}', 'm');
+
+      // replace all occurances of regex
+      while (fileContent.match(rex)) {
+        fileContent = fileContent.replace(rex, data[param]);
+      }
+    }
+    
+    // setup R process
+    /*
+    var R = spawn('R');
+    R.stdout.setEncoding('utf8');
+    R.runCmd = true;
+    
+    R.stdin.on('drian', function() {
+      console.log('DRAIN');
+    });
+    R.stdin.on('close', function () {
+      console.log('IN CLOSE');
+    });
+    R.stdin.on('pipe', function () {
+      console.log('PIPE');
+    });
+    R.stdin.on('error', function () {
+      console.log('IN ERROR');
+    });
+    R.stdout.on('close', function () {
+      console.log('OUT CLOSE');
+    });
+    R.stdout.on('end', function () {
+      console.log('END');
+    });
+    R.stdout.on('error', function () {
+      console.log('OUT ERROR');
+    });
+    
+    // output 
+    R.stdout.on('data', function(msg) {
+      console.log(msg);
+    });
+    
+    var lines = fileContent.split('\n');
+    for (var i in lines) {
+      //console.log(JSON.stringify(lines[i] + '\n'));
+      R.stdin.write('4;', 'utf8');
+    }
+    */
+   
+    
+  });
+};
+
 logger.log('Starting socket.');
 
 io = require('socket.io').listen(server);
@@ -201,7 +259,6 @@ io.sockets.on('connection', function (socket) {
       } catch (err) {
         socket.emit('server error', err);
       }
-      
     });
 });
 
@@ -210,6 +267,7 @@ io.sockets.on('connection', function (socket) {
  * this makes the session ID accessible from the 
  * socket.on methods.
  */
+/*
 io.set('authorization', function (data, accept) {
     
     if (data.headers.cookie) {    
@@ -223,6 +281,7 @@ io.set('authorization', function (data, accept) {
        return accept('No cookie transmitted.', false);
     }
 });
+//*/
 
 // ----------------------------------------------------------------------------
 // END Socket
