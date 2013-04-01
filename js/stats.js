@@ -4,12 +4,12 @@
  */
 
 
-function graphClusters(stats)
+function graphClusters2D(clusters)
 {
   var allData = [];
-  for (var center in stats) {
+  for (var center in clusters) {
     console.log(center);
-    var cluster = stats[center];
+    var cluster = clusters[center];
     console.log(cluster);
     var clusterData = [];
     for (var p = 0; p < cluster.x.length; p++) {
@@ -32,6 +32,54 @@ function graphClusters(stats)
           });
 
 }
+
+var graphClusters3D = function(clusters) {
+  
+  var 
+    dataPoints = [],
+    dataLabels = [];
+  
+  for (var i = 0; i < clusters.length; i++) {
+    for (var j = 0; j < clusters[i].x.length; j++) {
+      dataPoints.push([
+        clusters[i].x[j],
+        clusters[i].y[j],
+        clusters[i].z[j]
+      ]);
+      dataLabels.push('C ' + i + ' P ' + j);
+    }
+  } 
+  
+  console.log(JSON.stringify(dataPoints));
+  
+  new CanvasXpress("dig-can", {
+    "y": {
+      "vars": dataLabels,
+      "smps": [
+        "x",
+        "y",
+        "z "
+      ],
+      "desc": [
+        "Intensity"
+      ],
+      "data": dataPoints
+    }
+  }, {
+    "graphType": "Scatter3D",
+    "useFlashIE": true,
+    "xAxis": [
+      "X Axis"
+    ],
+    "yAxis": [
+      "Y Axis"
+    ],
+    "zAxis": [
+      "Z Axis"
+    ],
+    "scatterType": false
+  });
+};
 
 var dataToTreeDataPoints = function(cluster) {
   var pointSet = [];
@@ -69,8 +117,8 @@ var buildTreeKmeansData = function(kmData) {
   treeData.push({
     label: 'Stats',
     children: [
-      { label: 'DB Index : ' + kmData.DBI },
-      { label: 'Total Within SS : ' + totalWithinSS }
+      {label: 'DB Index : ' + kmData.DBI},
+      {label: 'Total Within SS : ' + totalWithinSS}
     ]
   });
 
@@ -111,7 +159,8 @@ var initTree = true;
 
 socket.on("kmeans cluster", function(kmData) {
   console.log('On : kmeans cluster');
-  
+
+  // build tree
   if ($("#dm-stats ul").length === 0) {
 
     $('#dm-stats').tree({
@@ -124,5 +173,6 @@ socket.on("kmeans cluster", function(kmData) {
     $('#dm-stats').tree('loadData', buildTreeKmeansData(kmData));
   }
 
-  graphClusters(kmData.clusters);
+  // plots kmean data
+  graphClusters3D(kmData.clusters);
 });
