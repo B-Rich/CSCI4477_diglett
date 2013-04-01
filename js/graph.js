@@ -16,12 +16,12 @@ function createDataSet(colNum, rowNum) {
 /* 
  * Make an aray of pairs from the columns to be plotted 
  */
-function formatData(colX, colY) {
+function formatData(colX, colY, colZ) {
   console.log(arguments.callee.caller.name);
 
   var dat = [];
   for (var i = 0; i < dataSet[colX].length; i++) {
-    dat.push([(dataSet[colX])[i], (dataSet[colY])[i]]);
+    dat.push([(dataSet[colX])[i], (dataSet[colY])[i], (dataSet[colZ])[i]]);
   }
   return dat;
 }
@@ -43,21 +43,26 @@ function updateScreen() {
   
   var 
     xCol = $('#x-axis-select option:selected').val(),
-    yCol = $('#y-axis-select option:selected').val();
+    yCol = $('#y-axis-select option:selected').val(),
+    zCol = $('#z-axis-select option:selected').val();
   var dataMinSize = dataSet[xCol].length;
   if (dataMinSize > dataSet[yCol].length) {
     dataMinSize = dataSet[yCol].length;
   }
+  if (dataMinSize > dataSet[zCol].length) {
+    dataMinSize = dataSet[zCol].length;
+  }
   dataSet[xCol].splice(dataMinSize);
   dataSet[yCol].splice(dataMinSize);
+  dataSet[zCol].splice(dataMinSize);
   
   console.log({
-    x: dataSet[xCol], y: dataSet[yCol], 
+    x: dataSet[xCol], y: dataSet[yCol], z:  dataSet[zCol],
     maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
   });
   
   socket.emit("kmeans cluster", {
-    x: dataSet[xCol], y: dataSet[yCol], 
+    x: dataSet[xCol], y: dataSet[yCol], z: dataSet[zCol],
     maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
   });
   

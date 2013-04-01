@@ -84,7 +84,8 @@ function selectData() {
 
   var colX = $('#x-axis-select option:selected');
   var colY = $('#y-axis-select option:selected');
-  return formatData(colX.val(), colY.val());
+  var colZ = $('#z-axis-select option:selected');
+  return formatData(colX.val(), colY.val(), colZ.val());
 }
 
 function displayFieldList() {
@@ -106,7 +107,7 @@ function displayFieldList() {
    */
   var xAxisSelect = $('<select />', {'id': "x-axis-select"});
   var yAxisSelect = $('<select />', {'id': "y-axis-select"});
-
+  var zAxisSelect = $('<select />', {'id': "z-axis-select"});
 
   // Add list items
   for (var c = 0; c < dataSet.length; c++)
@@ -132,6 +133,10 @@ function displayFieldList() {
             $('<option />', {'value': c})
             .append("F" + (c + 1))
             .attr(((c === 1) ? "selected" : "not-selected"), ((c === 1) ? "selected" : "")));
+    zAxisSelect.append(
+            $('<option />', {'value': c})
+            .append("F" + (c + 1))
+            .attr(((c === 1) ? "selected" : "not-selected"), ((c === 1) ? "selected" : "")));
 
   }
 
@@ -142,7 +147,8 @@ function displayFieldList() {
    */
   $("select#x-axis-select").replaceWith(xAxisSelect);
   $("select#y-axis-select").replaceWith(yAxisSelect);
-  $("select#x-axis-select, select#y-axis-select").change(function() {
+  $("select#z-axis-select").replaceWith(zAxisSelect);
+  $("select#x-axis-select, select#y-axis-select, select#z-axis-select").change(function() {
     updateScreen();
   });
 }
