@@ -79,6 +79,23 @@ var clusterRadius = function(cluster) {
 
 /*
  * 
+ * @param {type} cluster
+ * @returns {undefined}
+ */
+var clusterWithinSS = function(cluster) {
+  var ss = 0;
+  for (var i = 0; i < cluster.x.length; i++) {
+    ss += Math.pow(distance(cluster.centroid, {
+      x: cluster.x[i],
+      y: cluster.y[i],
+      z: cluster.z[i]
+    }), 2);
+  }
+  return ss;
+}
+
+/*
+ * 
  */
 exports.kmeans = function(data) {
 
@@ -157,17 +174,20 @@ exports.kmeans = function(data) {
     }
   }
 
-  // set the cluster distances
+  // set statistics per cluster
   for (var i = 0; i < clusters.length; i++) {
+    
+    // radius
+    clusters[i].radius = clusterRadius(clusters[i]);
+    
+    // cluster to cluster distances
     clusters[i].dist = [];
     for (var j = 0; j < clusters.length; j++) {
       clusters[i].dist.push(distance(clusters[i].centroid, clusters[j].centroid));
     }
-  }
-
-  // set the cluster radius
-  for (var i = 0; i < clusters.length; i++) {
-    clusters[i].radius = clusterRadius(clusters[i]);
+    
+    // within sum of squares
+    clusters[i].withinss = clusterWithinSS(clusters[i]);
   }
 
   return clusters;
