@@ -47,15 +47,18 @@ and open the template in the editor.
        */
       $(document).ready(function() {
         $('body').on('keyup', function(event) {
-          if (event.which === 79 /* o */
-                  || event.which === 84 /* t */) {
-            console.log("Toggles the Options (Open/Closed)");
-            $("#options-toggle").click();
-          }
-          else if (event.which === 82 /* r */
-                  || event.which === 71 /* g */) {
-            console.log("Generate Random Data");
-            $("#random-button").click();
+          if ($(event.target).is(':not(input, textarea)')) { 
+            // Disable Hotkeys when typing in input, such as username and password
+            if (event.which === 79 /* o */
+                    || event.which === 84 /* t */) {
+              console.log("Toggles the Options (Open/Closed)");
+              $("#options-toggle").click();
+            }
+            else if (event.which === 82 /* r */
+                    || event.which === 71 /* g */) {
+              console.log("Generate Random Data");
+              $("#random-button").click();
+            }
           }
           console.log(event.which);
         });
@@ -78,7 +81,7 @@ and open the template in the editor.
         <div class="">
           <label for="username">Username</label><br />
           <input type="text" id="username" placeholder="Username"/><br />
-          
+
         </div>
         <div style="display: inline-block;">
           <label for="password">Password</label><br />
