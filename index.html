@@ -42,10 +42,11 @@ and open the template in the editor.
         }
       }
 
-      /*
-       * Hotkeys
-       */
       $(document).ready(function() {
+
+        /*
+         * Hotkeys
+         */
         $('body').on('keyup', function(event) {
           if ($(event.target).is(':not(input, textarea)')) {
             // Disable Hotkeys when typing in input, such as username and password
@@ -63,7 +64,29 @@ and open the template in the editor.
           console.log(event.which);
         });
 
+        /*
+         * Login
+         */
+        // Send login username and password
+        $("#loginForm").submit(function() {
+          //console.log("Username:" + $('#username').val());
+          //console.log("Password:" + $('#password').val());
+          socket.emit('auth',
+                  {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                  });
+          return false; // Disable default form submit action
+        });
+        // Receive login validation status.
+        socket.on('auth', function(loginStatus) {
+          
+        });
+
+
       });
+
+
 
     </script>
     <script type="text/javascript" src="./js/uploader.js"></script>
@@ -90,7 +113,7 @@ and open the template in the editor.
         </div>
         <div style="display: inline-block;">
           <br />
-          <button>Log In</button>
+          <button id="login">Log In</button>
         </div>
       </form>
     </header>
