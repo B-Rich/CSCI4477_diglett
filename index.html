@@ -23,11 +23,11 @@ and open the template in the editor.
     <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
     <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
     <script src="js/libs/jqTree/tree.jquery.js"></script>
-    
+
     <!-- Global Variables -->
     <script>
       var origHeight = 0;
-      var socket = io.connect(undefined, {'port':1337});
+      var socket = io.connect(undefined, {'port': 1337});
       var
               dataSet = {},
               DEBUG = true;
@@ -41,6 +41,27 @@ and open the template in the editor.
           console.log(message);
         }
       }
+
+      /*
+       * Hotkeys
+       */
+      $(document).ready(function() {
+        $('body').on('keyup', function(event) {
+          if (event.which === 79 /* o */
+                  || event.which === 84 /* t */) {
+            console.log("Toggles the Options (Open/Closed)");
+            $("#options-toggle").click();
+          }
+          else if (event.which === 82 /* r */
+                  || event.which === 71 /* g */) {
+            console.log("Generate Random Data");
+            $("#random-button").click();
+          }
+          console.log(event.which);
+        });
+
+      });
+
     </script>
     <script type="text/javascript" src="./js/uploader.js"></script>
     <script type="text/javascript" src="./js/graph.js"></script>
@@ -72,13 +93,13 @@ and open the template in the editor.
               <button id="download-button">Download</button>
             </div>
           </td>
-          
+
           <td id="dm-graph-box">
             <div id="graphContainer" class="graphContainer">
               <div id="dm-graph" class="graphContainer"></div>
             </div>
           </td>
-         
+
           <td id="dm-stats-panel">
             <div id="dm-stats" class=""></div>
           </td>
