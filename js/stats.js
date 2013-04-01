@@ -77,6 +77,7 @@ function buildTreeKmeansData(data) {
 }
 
 var initTree = true;
+
 socket.on("kmeans cluster", function(data) { 
   console.log(buildTreeKmeansData(data));  
   if ($("#dm-stats ul").length === 0) {
