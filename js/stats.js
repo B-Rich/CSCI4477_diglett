@@ -56,48 +56,49 @@ var dataToTreeClusterDistances = function(cluster) {
   return distSet;
 };
 
-var buildTreeKmeansData = function(clusters) {
+var buildTreeKmeansData = function(kmData) {
 
   var
           treeData = [],
           totalWithinSS = 0;
 
-  for (var i = 0; i < clusters.length; i++) {
-    totalWithinSS += clusters[i].withinss;
+  for (var i = 0; i < kmData.clusters.length; i++) {
+    totalWithinSS += kmData.clusters[i].withinss;
   }
 
   treeData.push({
     label: 'Stats',
     children: [
-      {label: 'Total Within SS : ' + totalWithinSS}
+      { label: 'DB Index : ' + kmData.DBI },
+      { label: 'Total Within SS : ' + totalWithinSS }
     ]
   });
 
-  for (var i = 0; i < clusters.length; i++) {
+  for (var i = 0; i < kmData.clusters.length; i++) {
     treeData.push({
       label: 'Cluster ' + i,
       children: [
         {
           label: 'Centroid',
           children: [
-            {label: 'x : ' + clusters[i].centroid.x},
-            {label: 'y : ' + clusters[i].centroid.y},
-            {label: 'z : ' + clusters[i].centroid.z}
+            {label: 'x : ' + kmData.clusters[i].centroid.x},
+            {label: 'y : ' + kmData.clusters[i].centroid.y},
+            {label: 'z : ' + kmData.clusters[i].centroid.z}
           ]
         },
         {
           label: 'Cluster Distances',
-          children: dataToTreeClusterDistances(clusters[i])
+          children: dataToTreeClusterDistances(kmData.clusters[i])
         },
         {
-          label: 'Radius : ' + clusters[i].radius
+          label: 'Radius : ' + kmData.clusters[i].radius
         },
         {
-          label: 'Within SS : ' + clusters[i].withinss
+          label: 'Within SS : ' + kmData.clusters[i].withinss
         },
         {
           label: 'Points : ',
-          children: dataToTreeDataPoints(clusters[i])
+          children: dataToTreeDataPoints(kmData.clusters[i])
         }
       ]
     });
@@ -108,18 +109,20 @@ var buildTreeKmeansData = function(clusters) {
 
 var initTree = true;
 
-socket.on("kmeans cluster", function(data) {
-  console.log(buildTreeKmeansData(data));
+socket.on("kmeans cluster", function(kmData) {
+  console.log('On : kmeans cluster');
+  
   if ($("#dm-stats ul").length === 0) {
 
     $('#dm-stats').tree({
-      data: buildTreeKmeansData(data),
+      data: buildTreeKmeansData(kmData),
       autoOpen: false,
       dragAndDrop: false
     });
     initTree = false;
+  } else {
+    $('#dm-stats').tree('loadData', buildTreeKmeansData(kmData));
   }
-  $('#dm-stats').tree('loadData', buildTreeKmeansData(data));
 
-  graphClusters(data);
+  graphClusters(kmData.clusters);
 });

@@ -92,7 +92,28 @@ var clusterWithinSS = function(cluster) {
     }), 2);
   }
   return ss;
-}
+};
+
+/*
+ * 
+ * @param {type} clusters
+ * @returns {undefined}
+ */
+var daviesBouldinIndex = function(clusters) {
+  
+  var DBI = 0; 
+  
+  for (var i = 0; i < clusters.length; i++) {
+    var r = [];
+    for (var j = 0; j < clusters.length; j++) {
+      r.push((clusters[i].dist[j] === 0) ? 
+      0 : (clusters[i].radius + clusters[j].radius) / clusters[i].dist[j]);
+    }
+    DBI += Math.max.apply(null, r);
+  }
+  
+  return DBI / clusters.length;
+};
 
 /*
  * 
@@ -190,7 +211,10 @@ exports.kmeans = function(data) {
     clusters[i].withinss = clusterWithinSS(clusters[i]);
   }
 
-  return clusters;
+  return {
+    DBI : daviesBouldinIndex(clusters),
+    clusters: clusters
+  };
 };
 
 

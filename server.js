@@ -169,8 +169,7 @@ logger.log('Starting socket.');
 
 io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-    
-    logger.log('Socket connection.');
+    logger.log('On : connection.');
     
     // ship the data to client
     socket.on('pull data', function () {
