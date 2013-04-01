@@ -40,11 +40,11 @@ var
         cookie = require('cookie');
 
 // kmeans lib
-//*
+/*
 var kmeans = require('./node/k2d').kmeans; // 2D
 /*/
 var kmeans = require('./node/k3d').kmeans; // 3D
-/*/
+//*/
 
 // ----------------------------------------------------------------------------
 // START Server
@@ -174,6 +174,7 @@ io.sockets.on('connection', function (socket) {
     
     // ship the data to client
     socket.on('pull data', function () {
+       console.log('On : pull data');
        
         var 
             file = userStore[socket.handshake.sessionID].file,
@@ -185,7 +186,8 @@ io.sockets.on('connection', function (socket) {
     
     // testing function
     socket.on('ding', function () {
-        console.log('DING : ' + socket.handshake.sessionID);
+        console.log('On : ding');
+        console.log('\tSID : ' + socket.handshake.sessionID);
     });
     
     /*
@@ -195,19 +197,16 @@ io.sockets.on('connection', function (socket) {
      * the parsed R response to the client.
      */
     socket.on('kmeans cluster', function(data) {
+      console.log('On : kmeans cluster');
       
       try {
-        console.log('KMEANS');
         var km = kmeans(data);
-        
         socket.emit('kmeans cluster', km);
-        
       } catch (err) {
         console.log(err);
         socket.emit('server error', err);
       }
     });
-    
     
 });
 

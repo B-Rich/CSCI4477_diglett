@@ -14,8 +14,8 @@ var clusterMean = function(cluster) {
           sum_z = 0;
   for (var i = 0; i < cluster.x.length; i++) {
     sum_x += cluster.x[i];
-    sum_y += cluster.y[i],
-            sum_z += cluster.z[i];
+    sum_y += cluster.y[i];
+    sum_z += cluster.z[i];
   }
 
   return {
@@ -45,7 +45,7 @@ var distance = function(point1, point2) {
  * @param {type} cluster
  * @returns {Number}
  */
-var selectCluster = function(point, cluster) {
+var selectCluster = function(point, clusters) {
   var
           minClusterDist = distance(point, clusters[0].centroid),
           clusterIndex = 0;
@@ -81,7 +81,8 @@ var clusterRadius = function(cluster) {
  * 
  */
 exports.kmeans = function(data) {
-// confirm data object formatted properly
+
+  // confirm data object formatted properly
   if (
           data.x === undefined ||
           data.y === undefined ||
@@ -101,7 +102,8 @@ exports.kmeans = function(data) {
     };
   }
 
-// initialize my clusters
+  var clusters = [];
+  // initialize my clusters
   for (var i = 0; i < data.centers; i++) {
     clusters[i] = {
       x: [],
@@ -116,20 +118,35 @@ exports.kmeans = function(data) {
     };
   }
 
-// clustering loop
-  var numIter = 0;
-  while (numIter < data.maxIter) {
+  // create initial clusters
+  for (var i = 0; i < data.x.length; i++) {
 
-// select new centroids
+    var pointClusterIndex = selectCluster({
+      x: data.x[i],
+      y: data.y[i],
+      z: data.z[i]
+    }, clusters);
+    clusters[pointClusterIndex].x.push(data.x[i]);
+    clusters[pointClusterIndex].y.push(data.y[i]);
+    clusters[pointClusterIndex].z.push(data.z[i]);
+  }
+
+  // clustering loop
+  for (var numIter = 0; numIter < data.maxIter; numIter++) {
+
+    // select new centroids
     for (var i = 0; i < clusters.length; i++) {
       clusters[i].centroid = clusterMean(clusters[i]);
+      
+      console.log('Cent ' + i + ' : ' + JSON.stringify(clusters[i].centroid));
+      
       // reset cluster sets
       clusters[i].x = [];
       clusters[i].y = [];
       clusters[i].z = [];
     }
 
-// create new clusters
+    // create new clusters
     for (var i = 0; i < data.x.length; i++) {
       var pointClusterIndex = selectCluster({
         x: data.x[i],
@@ -140,16 +157,13 @@ exports.kmeans = function(data) {
       clusters[pointClusterIndex].y.push(data.y[i]);
       clusters[pointClusterIndex].z.push(data.z[i]);
     }
-
-    numIter++;
   }
 
-// set the cluster radius
+  // set the cluster radius
   for (var i = 0; i < clusters.length; i++) {
     clusters[i].radius = clusterRadius(clusters[i]);
   }
 
-  console.log(JSON.stringify(clusters), null, 2);
   return clusters;
 };
 

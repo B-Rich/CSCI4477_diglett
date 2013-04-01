@@ -40,7 +40,8 @@ function dataToTreeDataPoints(cluster) {
       label : 'point ' + i,
       children : [
         { label : 'x : ' + cluster.x[i] },
-        { label : 'y : ' + cluster.y[i] }
+        { label : 'y : ' + cluster.y[i] },
+        { label : 'z : ' + cluster.z[i] }
       ]
     });
   }
@@ -58,8 +59,9 @@ function buildTreeKmeansData(data) {
         {
           label : 'Centroid',
           children : [
-            { label : 'x : ' + data[i].centroid.x },
-            { label : 'y : ' + data[i].centroid.y }
+            { label: 'x : ' + data[i].centroid.x },
+            { label: 'y : ' + data[i].centroid.y },
+            { label: 'z : ' + data[i].centroid.z }
           ]
         },
         {

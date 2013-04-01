@@ -106,7 +106,7 @@ exports.kmeans = function(data) {
     };
   }
 
-// create initial clusters
+  // create initial clusters
   for (var i = 0; i < data.x.length; i++) {
 
     var pointClusterIndex = selectCluster({
@@ -116,11 +116,11 @@ exports.kmeans = function(data) {
     clusters[pointClusterIndex].x.push(data.x[i]);
     clusters[pointClusterIndex].y.push(data.y[i]);
   }
+  
   // clustering loop
-  var numIter = 0;
-  while (numIter < data.maxIter) {
+  for (var numIter = 0; numIter < data.maxIter; numIter++) {
 
-// select new centroids
+    // select new centroids
     for (var i = 0; i < clusters.length; i++) {
       clusters[i].centroid = clusterMean(clusters[i]);
       // reset cluster sets
@@ -128,7 +128,7 @@ exports.kmeans = function(data) {
       clusters[i].y = [];
     }
 
-// create new clusters
+    // create new clusters
     for (var i = 0; i < data.x.length; i++) {
       var pointClusterIndex = selectCluster({
         x: data.x[i],
@@ -137,8 +137,6 @@ exports.kmeans = function(data) {
       clusters[pointClusterIndex].x.push(data.x[i]);
       clusters[pointClusterIndex].y.push(data.y[i]);
     }
-
-    numIter++;
   }
   
   // set the cluster radius
