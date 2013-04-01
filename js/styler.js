@@ -6,7 +6,7 @@
 
 // Global variables
 $(document).ready(function() {
-    resizePage(); 
+  resizePage();
 });
 
 (function($, sr) {
@@ -48,29 +48,29 @@ $(window).smartresize(function() {
 });
 
 /*
-function testDisplayFieldList() {
-  dataSet = [["F1"], ["F2"], ["F3"], ["F4"], ["F5"], ["F1"], ["F2"], ["F3"], ["F4"], ["F5"]];
-  displayFieldList();
-}
-*/
+ function testDisplayFieldList() {
+ dataSet = [["F1"], ["F2"], ["F3"], ["F4"], ["F5"], ["F1"], ["F2"], ["F3"], ["F4"], ["F5"]];
+ displayFieldList();
+ }
+ */
 
 
 /*
-function createDataSet(colNum, rowNum) {
-  var dataSet = new Array();
-
-  for (var c = 0; c < colNum; c++)
-  {
-    var newColumn = new Array();
-    for (var r = 0; r < rowNum; r++)
-    {
-      newColumn.push((Math.random() * 1000));
-    }
-    dataSet.push(newColumn);
-  }
-  return dataSet;
-}
-*/
+ function createDataSet(colNum, rowNum) {
+ var dataSet = new Array();
+ 
+ for (var c = 0; c < colNum; c++)
+ {
+ var newColumn = new Array();
+ for (var r = 0; r < rowNum; r++)
+ {
+ newColumn.push((Math.random() * 1000));
+ }
+ dataSet.push(newColumn);
+ }
+ return dataSet;
+ }
+ */
 
 
 function resizePage()
@@ -103,25 +103,33 @@ function resizePage()
 //         + parseInt( $("#options-toggle").css("padding-top"))
             )});
   $("#options-panel").css({width: $("#options-toggle").width()});
-  
-  
+
+
   //=== Resize Width
   // 20% / 50% / 30%
   var maxWidth = $("table#dig-visTable").width() - parseInt($("td#dm-graph-box").css('padding-right')) - parseInt($("td#dm-file").css('padding-right'));
   //console.log(maxWidth);
   //console.log( $("td#dm-graph-box").width() );
-  $("td#dm-file").css({ width: (maxWidth*0.20) });
-  $("td#dm-graph-box, .graphContainer, canvas").css({ width: (maxWidth*0.50) });
-  $("td#dm-stats-panel").width(maxWidth*0.30);
-  //console.log( $("td#dm-graph-box").width() );
-  
-  if ( !$.isEmptyObject(dataSet) )
+  if ( $("td#dm-file").css('display') !== 'none' )
   {
-     updateScreen();
+    $("td#dm-file").css({width: (maxWidth * 0.20)});
+    $("td#dm-graph-box, .graphContainer, canvas").css({width: (maxWidth * 0.50)});
+    $("td#dm-stats-panel").width(maxWidth * 0.30);
+    //console.log( $("td#dm-graph-box").width() );
+  }
+  else
+  {
+    $("td#dm-file").css({ width: (0) });
+    $("td#dm-graph-box, .graphContainer, canvas").css({width: (maxWidth * 0.60)});
+    $("td#dm-stats-panel").width(maxWidth * 0.40);
+  }
+  if (!$.isEmptyObject(dataSet))
+  {
+    updateScreen();
     //var dat = selectData();
     //$.plot($('#dm-graph'), [{data: dat, points: {show: true}, grid: {minBorderMargin: 10}}]);
     //  $("#dm-graph canvas").height( $("dm-graph").height());
-  
+
   }
-  
+
 }
