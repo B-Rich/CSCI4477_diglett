@@ -26,3 +26,12 @@ header {
     font-style:italic;
     margin-left: 20px;
 }
+
+form.loginForm {
+  float: right;
+}
+
+form.loginForm div {
+  display: inline-block;
+  vertical-align:top;
+}
