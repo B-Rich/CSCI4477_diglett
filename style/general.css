@@ -59,19 +59,20 @@ input[type="submit"], button, #options-toggle {
     border-radius: 10px;
 }
 
-input #random-button{
+/*
+#random-button {
     background: -webkit-gradient(linear, left top, left bottom, 
       color-stop(0%,rgba(13,14,14,1.0)), color-stop(50%,rgba(55,59,62,1.0)), 
-      color-stop(51%,rgba(55,59,62,1.0)), color-stop(100%,rgba(13,14,14,1.0))); /* Chrome,Safari4+ */
+      color-stop(51%,rgba(55,59,62,1.0)), color-stop(100%,rgba(13,14,14,1.0)));
     float: right;
     width: 48px;
     height: 48px;
     margin: 0 10px 0 10px;
     
-    /* background-color: rgba(14,14,14,1.0); */
     border: 1px solid black;
     border-radius: 10px;
 }
+*/
 
 #dig-visTable td div {
   -webkit-box-sizing: content-box;

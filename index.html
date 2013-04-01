@@ -47,7 +47,7 @@ and open the template in the editor.
        */
       $(document).ready(function() {
         $('body').on('keyup', function(event) {
-          if ($(event.target).is(':not(input, textarea)')) { 
+          if ($(event.target).is(':not(input, textarea)')) {
             // Disable Hotkeys when typing in input, such as username and password
             if (event.which === 79 /* o */
                     || event.which === 84 /* t */) {
@@ -163,12 +163,16 @@ and open the template in the editor.
         <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
           <div class="block" style="clear: left; width: 100%;">
             <span class="options-title">Display Options</span><br />
-            <div style="margin: 10px 10px 0px 0px; display: inline-block;" onclick="genRandData();" >
-              <img id="random-button" src="image/shuffle1.png" title="Generate Random Data"/>
+            <div id="random-button" onclick="genRandData();" >
+              <button>
+                <img src="image/shuffle2.png" title="Generate Random Data"/>
+              </button>
               <br /><strong>Random Data</strong>
             </div>
-            <div style="display: inline-block;" onclick="refreshDataClick();">
-              <img id="dig-refresh-button" src="image/refresh1.png" title="Refresh Graph" />
+            <div id="dig-refresh-button" onclick="refreshDataClick();">
+              <button>
+                <img src="image/refresh2.png" title="Refresh Graph" />
+              </button>
               <br /><strong>Load Data</strong>
             </div>
             <!--
