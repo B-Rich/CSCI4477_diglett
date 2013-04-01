@@ -61,14 +61,13 @@ and open the template in the editor.
               $("#random-button").click();
             }
           }
-          console.log(event.which);
         });
 
         /*
          * Login
          */
         // Send login username and password
-        $("#loginForm").submit(function() {
+        $(".loginForm").submit(function() {
           //console.log("Username:" + $('#username').val());
           //console.log("Password:" + $('#password').val());
           socket.emit('auth',
@@ -78,15 +77,12 @@ and open the template in the editor.
                   });
           return false; // Disable default form submit action
         });
+
         // Receive login validation status.
         socket.on('auth', function(loginStatus) {
-          
+
         });
-
-
       });
-
-
 
     </script>
     <script type="text/javascript" src="./js/uploader.js"></script>

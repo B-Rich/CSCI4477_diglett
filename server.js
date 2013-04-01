@@ -207,14 +207,17 @@ io.sockets.on('connection', function (socket) {
       console.log('On : kmeans cluster');
       
       try {
-        var km = kmeans(data);
-        socket.emit('kmeans cluster', km);
+        var kmData = kmeans(data);
+        socket.emit('kmeans cluster', kmData);
       } catch (err) {
         console.log(err);
         socket.emit('server error', err);
       }
     });
     
+    socket.on('auth', function(user) {
+      console.log(JSON.stringify(user, null, 2));
+    });    
 });
 
 /*
