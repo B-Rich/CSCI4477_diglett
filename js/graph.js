@@ -30,21 +30,25 @@ function formatData(colX, colY, colZ) {
  * Refresh the graph block with the user's desired table 
  */
 function updateScreen() {
-  var dat = selectData();
-  $.plot($('#dm-graph'), [{data: dat}], {
-      points: {show: true},
-      xaxis: { autoscaleMargin: 0.01 },
-      grid: { hoverable: true, labelMargin: 10, minBorderMargin: 20, borderWidth: 1, borderHeight: 1 }
-    });
+  console.log("Call : updateScreen");
+
+  /*
+   var dat = selectData();
+   $.plot($('#dm-graph'), [{data: dat}], {
+   points: {show: true},
+   xaxis: { autoscaleMargin: 0.01 },
+   grid: { hoverable: true, labelMargin: 10, minBorderMargin: 20, borderWidth: 1, borderHeight: 1 }
+   });
+   */
+
   // Get the kMeans data
-  console.log("Update Stats");
   var maxIter = $("#iterationCount").val();
   var clustersCount = $("#clusterCount").val();
-  
-  var 
-    xCol = $('#x-axis-select option:selected').val(),
-    yCol = $('#y-axis-select option:selected').val(),
-    zCol = $('#z-axis-select option:selected').val();
+
+  var
+          xCol = $('#x-axis-select option:selected').val(),
+          yCol = $('#y-axis-select option:selected').val(),
+          zCol = $('#z-axis-select option:selected').val();
   var dataMinSize = dataSet[xCol].length;
   if (dataMinSize > dataSet[yCol].length) {
     dataMinSize = dataSet[yCol].length;
@@ -55,17 +59,22 @@ function updateScreen() {
   dataSet[xCol].splice(dataMinSize);
   dataSet[yCol].splice(dataMinSize);
   dataSet[zCol].splice(dataMinSize);
-  
-  console.log({
-    x: dataSet[xCol], y: dataSet[yCol], z:  dataSet[zCol],
-    maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
-  });
-  
+
+  /*
+   console.log({
+   x: dataSet[xCol], y: dataSet[yCol], z:  dataSet[zCol],
+   maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
+   });
+   */
+
   socket.emit("kmeans cluster", {
-    x: dataSet[xCol], y: dataSet[yCol], z: dataSet[zCol],
-    maxIter: parseInt(maxIter), centers: parseInt(clustersCount)
+    x: dataSet[xCol], 
+    y: dataSet[yCol], 
+    z: dataSet[zCol],
+    maxIter: parseInt(maxIter), 
+    centers: parseInt(clustersCount)
   });
-  
+
 }
 
 /* 

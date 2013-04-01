@@ -119,6 +119,14 @@ app.post('/', function (request, response){
      response.sendfile('index.html');
 });
 
+app.get('/test', function (request, response) {
+    
+    logger.log('Request started.', nodeL.LOG_TYPE.REQUEST);
+    logger.log('GET : ' + request.sessionID, nodeL.LOG_TYPE.REQUEST);
+    
+    response.sendfile('test.html');
+});
+
 server.listen(1337);
 
 logger.log('Server started.');
