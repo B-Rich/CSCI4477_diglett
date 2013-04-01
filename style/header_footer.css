@@ -35,3 +35,14 @@ form.loginForm div {
   display: inline-block;
   vertical-align:top;
 }
+
+form.loginForm div label {
+  font-weight: bold;
+}
+
+form.loginForm a:link, form.loginForm a:visited {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 0.8em;
+}

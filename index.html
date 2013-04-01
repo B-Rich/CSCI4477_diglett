@@ -123,13 +123,13 @@ and open the template in the editor.
         </tr>
       </table>
 
-      <div id="options-panel" style="">
+      <div id="options-panel" style="vertical-align: top;">
 
-        <div class="block" style="width: 15%; height: 100%">
+        <div class="block" style="width: 15%; height: 100%; vertical-align: top;">
 
           <div id="select-fields">
             <div class="axis-select">
-              <label for="x-axis-select"><b>Select X-Axis Field</b></label>
+              <label for="x-axis-select" class="options-title">Select X-Axis Field</label>
               <select id="x-axis-select" onchange="updateScreen();">
                 <option value="1" selected="selected">F1</option>
                 <option value="2">F2</option>
@@ -139,7 +139,7 @@ and open the template in the editor.
             </div>
             <hr />
             <div class="axis-select">
-              <label for="y-axis-select"><b>Select Y-Axis Field</b></label>
+              <label for="y-axis-select" class="options-title">Select Y-Axis Field</label>
               <select id="y-axis-select" onchange="updateScreen();">
                 <option value="1">F1</option>
                 <option value="2" selected="selected">F2</option>
@@ -149,7 +149,7 @@ and open the template in the editor.
             </div>
             <hr />
             <div class="axis-select">
-              <label for="z-axis-select"><b>Select Z-Axis Field</b></label>
+              <label for="z-axis-select" class="options-title">Select Z-Axis Field</label>
               <select id="z-axis-select" onchange="updateScreen();">
                 <option value="1">F1</option>
                 <option value="2">F2</option>
@@ -162,14 +162,14 @@ and open the template in the editor.
 
         <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
           <div class="block" style="clear: left; width: 100%;">
-            <span>Display Options</span><br />
-            <div style="display: inline-block;">
-              <img id="random-button" src="image/media-shuffle.png" title="Generate Random Data" onclick="genRandData();" />
-              <br />Random Data
+            <span class="options-title">Display Options</span><br />
+            <div style="margin: 10px 10px 0px 0px; display: inline-block;" onclick="genRandData();" >
+              <img id="random-button" src="image/shuffle1.png" title="Generate Random Data"/>
+              <br /><strong>Random Data</strong>
             </div>
-            <div style="display: inline-block;">
-              <img id="dig-refresh-button" src="image/Refresh.png" title="Refresh Graph" onclick="refreshDataClick();" />
-              <br />Load Data
+            <div style="display: inline-block;" onclick="refreshDataClick();">
+              <img id="dig-refresh-button" src="image/refresh1.png" title="Refresh Graph" />
+              <br /><strong>Load Data</strong>
             </div>
             <!--
                   <label><input type="checkbox" id="option1" >Phase 2 Feature 1</label><br /> 

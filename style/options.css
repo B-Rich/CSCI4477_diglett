@@ -85,3 +85,8 @@ div#options-toggle {
     border: 1px solid black;
     border-radius: 10px;
 }
+
+.options-title {
+  font-size: 1.3em;
+  font-weight: bold;
+}
