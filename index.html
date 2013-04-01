@@ -79,11 +79,20 @@ and open the template in the editor.
         });
 
         // Receive login validation status.
-        socket.on('auth', function(loginStatus) {
-
+        socket.on('auth', function(isLoggedIn) {
+          if (isLoggedIn === true) {
+            // Logged in
+            $('body').removeClass('not-logged-in').addClass('logged-in');
+          }
+          else {
+            // Not logged in
+            $('body').addClass('not-logged-in').removeClass('logged-in');
+          }
+          // Resize page to account for any styling changes
+          resizePage();
         });
       });
-
+      
     </script>
     <script type="text/javascript" src="./js/uploader.js"></script>
     <script type="text/javascript" src="./js/graph.js"></script>
@@ -92,15 +101,17 @@ and open the template in the editor.
     <script type="text/javascript" src="./js/stats.js"></script>
 
   </head>
-  <body>
+  <body class="not-logged-in">
     <header >
       <span id="dig-title">{ diglett }</span>
       <span id="dig-slogan">Deep data analysis.</span>
+      <div style="display: inline-block; float:right;">
+        <button id="logout">Logout</button>
+      </div>
       <form class="loginForm">
         <div class="">
           <label for="username">Username</label><br />
           <input type="text" id="username" placeholder="Username"/><br />
-
         </div>
         <div style="display: inline-block;">
           <label for="password">Password</label><br />
