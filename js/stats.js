@@ -33,7 +33,7 @@ function graphClusters(stats)
 
 }
 
-function dataToTreeDataPoints(cluster) {
+var dataToTreeDataPoints = function(cluster) {
   var pointSet = [];
   for (var i = 0; i < cluster.x.length; i++) {
     pointSet.push({ 
@@ -46,9 +46,17 @@ function dataToTreeDataPoints(cluster) {
     });
   }
   return pointSet;
-}
+};
 
-function buildTreeKmeansData(data) {
+var dataToTreeClusterDistances = function(cluster) {
+  var distSet = [];
+  for (var i = 0; i < cluster.dist.length; i++) {
+    distSet.push({ label: i + " : " + cluster.dist[i] });
+  }
+  return distSet;
+};
+
+var buildTreeKmeansData = function(data) {
   
   var treeData = [];
   
@@ -65,6 +73,10 @@ function buildTreeKmeansData(data) {
           ]
         },
         {
+          label : 'Cluster Distances',
+          children : dataToTreeClusterDistances(data[i])
+        },
+        {
           label : 'Radius : ' + data[i].radius
         },
         {
@@ -76,7 +88,7 @@ function buildTreeKmeansData(data) {
   }
   
   return treeData;
-}
+};
 
 var initTree = true;
 

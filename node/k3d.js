@@ -138,8 +138,6 @@ exports.kmeans = function(data) {
     for (var i = 0; i < clusters.length; i++) {
       clusters[i].centroid = clusterMean(clusters[i]);
       
-      console.log('Cent ' + i + ' : ' + JSON.stringify(clusters[i].centroid));
-      
       // reset cluster sets
       clusters[i].x = [];
       clusters[i].y = [];
@@ -156,6 +154,14 @@ exports.kmeans = function(data) {
       clusters[pointClusterIndex].x.push(data.x[i]);
       clusters[pointClusterIndex].y.push(data.y[i]);
       clusters[pointClusterIndex].z.push(data.z[i]);
+    }
+  }
+
+  // set the cluster distances
+  for (var i = 0; i < clusters.length; i++) {
+    clusters[i].dist = [];
+    for (var j = 0; j < clusters.length; j++) {
+      clusters[i].dist.push(distance(clusters[i].centroid, clusters[j].centroid));
     }
   }
 
