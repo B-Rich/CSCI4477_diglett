@@ -1,6 +1,8 @@
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
+Asha Rani
+Chris Oulett
+Dawson Reid
+Glavin Weichert
 -->
 <!DOCTYPE html>
 <html>
@@ -27,7 +29,7 @@ and open the template in the editor.
     <!-- Global Variables -->
     <script>
       var origHeight = 0;
-      var socket = io.connect(undefined, {'port': 1337});
+      var socket = io.connect('http://localhost:1337');
       var
               dataSet = {},
               DEBUG = true;
@@ -64,18 +66,23 @@ and open the template in the editor.
         });
 
         /*
-         * Login
+         * Login : Send login username and password
          */
-        // Send login username and password
-        $(".loginForm").submit(function() {
+        $("#login").click(function() {
           //console.log("Username:" + $('#username').val());
           //console.log("Password:" + $('#password').val());
-          socket.emit('auth',
+          socket.emit('login',
                   {
                     username: $('#username').val(),
                     password: $('#password').val()
                   });
           return false; // Disable default form submit action
+        });
+        
+        $('#logout').click(function() {
+          socket.emit('logout');
+          $('body').addClass('not-logged-in').removeClass('logged-in');
+          return false;
         });
 
         // Receive login validation status.
@@ -92,7 +99,7 @@ and open the template in the editor.
           resizePage();
         });
       });
-      
+
     </script>
     <script type="text/javascript" src="./js/uploader.js"></script>
     <script type="text/javascript" src="./js/graph.js"></script>

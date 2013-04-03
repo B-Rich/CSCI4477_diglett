@@ -24,7 +24,8 @@ $(document).ready(function() {
   });
   // Click outside of options panel
   $(document).click( function() {
-    console.log("Hide");
+    console.log("Event : $(document).click - hide toggle options panel.");
+    
     // Hide
     var options = $("#options-panel");
     if (options.hasClass("active"))
@@ -45,7 +46,8 @@ $(document).ready(function() {
 });
 
 function toggleOptionsPanel() {
-  console.log("Toggle Options");
+  console.log("Call : toggleOptionsPanel");
+  
   var options = $("#options-panel");
   if (!options.hasClass("active"))
   { // Is currently hidden
