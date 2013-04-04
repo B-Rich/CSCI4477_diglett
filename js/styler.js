@@ -114,14 +114,14 @@ function resizePage()
   {
     $("td#dm-file").css({width: (maxWidth * 0.20)});
     $("td#dm-graph-box, .graphContainer, canvas").css({width: (maxWidth * 0.50)});
-    $("td#dm-stats-panel").width(maxWidth * 0.30);
+    $("td#dm-stats-panel").css({width:(maxWidth * 0.30)});
     //console.log( $("td#dm-graph-box").width() );
   }
   else
   {
     $("td#dm-file").css({ width: (0) });
     $("td#dm-graph-box, .graphContainer, canvas").css({width: (maxWidth * 0.60)});
-    $("td#dm-stats-panel").width(maxWidth * 0.40);
+    $("td#dm-stats-panel").css({width:(maxWidth * 0.40)});
   }
   if (!$.isEmptyObject(dataSet))
   {
