@@ -23,11 +23,13 @@ and open the template in the editor.
     <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
     <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
     <script src="js/libs/jqTree/tree.jquery.js"></script>
-    
+    <!--[if lt IE 9]><script type="text/javascript" src="./js/flashcanvas.js"></script><![endif]-->
+    <script src="./js/libs/canvasXpress/canvasXpress.min.js"></script>
+
     <!-- Global Variables -->
     <script>
       var origHeight = 0;
-      var socket = io.connect(undefined, {'port':1337});
+      var socket = io.connect(undefined, {'port': 1337});
       var
               dataSet = {},
               DEBUG = true;
@@ -47,7 +49,7 @@ and open the template in the editor.
     <script type="text/javascript" src="./js/options.js"></script>
     <script type="text/javascript" src="./js/styler.js"></script>
     <script type="text/javascript" src="./js/stats.js"></script>
-
+    
   </head>
   <body>
     <header >
@@ -72,13 +74,11 @@ and open the template in the editor.
               <button id="download-button">Download</button>
             </div>
           </td>
-          
+
           <td id="dm-graph-box">
-            <div id="graphContainer" class="graphContainer">
-              <div id="dm-graph" class="graphContainer"></div>
-            </div>
+            <canvas id="dig-can" width="200" height="200"></canvas>
           </td>
-         
+
           <td id="dm-stats-panel">
             <div id="dm-stats" class=""></div>
           </td>
