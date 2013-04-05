@@ -1,6 +1,8 @@
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
+Asha Rani
+Chris Ouellett
+Dawson Reid
+Glavin Wiechert
 -->
 <!DOCTYPE html>
 <html>
@@ -29,7 +31,7 @@ and open the template in the editor.
     <!-- Global Variables -->
     <script>
       var origHeight = 0;
-      var socket = io.connect(undefined, {'port': 1337});
+      var socket = io.connect(undefined, {port:'1337'});
       var
               dataSet = {},
               DEBUG = true;
@@ -43,6 +45,63 @@ and open the template in the editor.
           console.log(message);
         }
       }
+
+      $(document).ready(function() {
+
+        /*
+         * Hotkeys
+         */
+        $('body').on('keyup', function(event) {
+          if ($(event.target).is(':not(input, textarea)')) {
+            // Disable Hotkeys when typing in input, such as username and password
+            if (event.which === 79 /* o */
+                    || event.which === 84 /* t */) {
+              console.log("Toggles the Options (Open/Closed)");
+              $("#options-toggle").click();
+            }
+            else if (event.which === 82 /* r */
+                    || event.which === 71 /* g */) {
+              console.log("Generate Random Data");
+              $("#random-button").click();
+            }
+          }
+        });
+
+        /*
+         * Login : Send login username and password
+         */
+        $("#login").click(function() {
+          //console.log("Username:" + $('#username').val());
+          //console.log("Password:" + $('#password').val());
+          socket.emit('login',
+                  {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                  });
+          return false; // Disable default form submit action
+        });
+        
+        $('#logout').click(function() {
+          socket.emit('logout');
+          $('body').addClass('not-logged-in').removeClass('logged-in');
+          return false;
+        });
+
+        // Receive login validation status.
+        socket.on('auth', function(isLoggedIn) {
+          if (isLoggedIn === true) {
+            // Logged in
+            $('body').removeClass('not-logged-in').addClass('logged-in');
+          }
+          else {
+            // Not logged in
+            $('body').addClass('not-logged-in').removeClass('logged-in');
+          }
+          // Resize page to account for any styling changes
+          resizePage();
+        });
+      });
+
     </script>
     <script type="text/javascript" src="./js/uploader.js"></script>
     <script type="text/javascript" src="./js/graph.js"></script>
@@ -51,12 +110,28 @@ and open the template in the editor.
     <script type="text/javascript" src="./js/stats.js"></script>
     
   </head>
-  <body>
+  <body class="not-logged-in">
     <header >
       <span id="dig-title">{ diglett }</span>
       <span id="dig-slogan">Deep data analysis.</span>
-      <img id="random-button" src="image/media-shuffle.png" title="Generate Random Data" onclick="genRandData();" />
-      <img id="dig-refresh-button" src="image/Refresh.png" title="Refresh Graph" onclick="refreshDataClick();" />
+      <div style="display: inline-block; float:right;">
+        <button id="logout">Logout</button>
+      </div>
+      <form class="loginForm">
+        <div class="">
+          <label for="username">Username</label><br />
+          <input type="text" id="username" placeholder="Username"/><br />
+        </div>
+        <div style="display: inline-block;">
+          <label for="password">Password</label><br />
+          <input type="password" id="password" placeholder="Password" /><br />
+          <a href="#forgotPassword">Forgot your password?</a>
+        </div>
+        <div style="display: inline-block;">
+          <br />
+          <button id="login">Log In</button>
+        </div>
+      </form>
     </header>
 
     <div id="page">
@@ -75,7 +150,7 @@ and open the template in the editor.
             </div>
           </td>
 
-          <td id="dm-graph-box" >
+          <td id="dm-graph-box">
             <div id="graphContainer" class="graphContainer">
               <div id="dm-graph" class="graphContainer">
                 <canvas id="dig-can" width="600" height="600" style="position: absolute;"></canvas>
@@ -89,13 +164,13 @@ and open the template in the editor.
         </tr>
       </table>
 
-      <div id="options-panel" style="">
+      <div id="options-panel" style="vertical-align: top;">
 
-        <div class="block" style="width: 15%; height: 100%">
+        <div class="block" style="width: 15%; height: 100%; vertical-align: top;">
 
           <div id="select-fields">
             <div class="axis-select">
-              <label for="x-axis-select"><b>Select X-Axis Field</b></label>
+              <label for="x-axis-select" class="options-title">Select X-Axis Field</label>
               <select id="x-axis-select" onchange="updateScreen();">
                 <option value="1" selected="selected">F1</option>
                 <option value="2">F2</option>
@@ -105,7 +180,7 @@ and open the template in the editor.
             </div>
             <hr />
             <div class="axis-select">
-              <label for="y-axis-select"><b>Select Y-Axis Field</b></label>
+              <label for="y-axis-select" class="options-title">Select Y-Axis Field</label>
               <select id="y-axis-select" onchange="updateScreen();">
                 <option value="1">F1</option>
                 <option value="2" selected="selected">F2</option>
@@ -115,7 +190,7 @@ and open the template in the editor.
             </div>
             <hr />
             <div class="axis-select">
-              <label for="z-axis-select"><b>Select Z-Axis Field</b></label>
+              <label for="z-axis-select" class="options-title">Select Z-Axis Field</label>
               <select id="z-axis-select" onchange="updateScreen();">
                 <option value="1">F1</option>
                 <option value="2">F2</option>
@@ -128,11 +203,24 @@ and open the template in the editor.
 
         <div class="block" style="width: 80%; height: 100%; vertical-align: top;">
           <div class="block" style="clear: left; width: 100%;">
-            <span>Display Options</span><br />
-
-            <label><input type="checkbox" id="option1" >Phase 2 Feature 1</label><br /> 
-            <label><input type="checkbox" id="option2" >Phase 2 Feature 2</label><br /> 
-            <label><input type="checkbox" id="option3" >Phase 2 Feature 3</label><br /> 
+            <span class="options-title">Display Options</span><br />
+            <div id="random-button" onclick="genRandData();" >
+              <button>
+                <img src="image/shuffle2.png" title="Generate Random Data"/>
+              </button>
+              <br /><strong>Random Data</strong>
+            </div>
+            <div id="dig-refresh-button" onclick="refreshDataClick();">
+              <button>
+                <img src="image/refresh2.png" title="Refresh Graph" />
+              </button>
+              <br /><strong>Load Data</strong>
+            </div>
+            <!--
+                  <label><input type="checkbox" id="option1" >Phase 2 Feature 1</label><br /> 
+                  <label><input type="checkbox" id="option2" >Phase 2 Feature 2</label><br /> 
+                  <label><input type="checkbox" id="option3" >Phase 2 Feature 3</label><br /> 
+            -->
           </div>
 
           <div class="block" style="width: 100%; clear:left;">

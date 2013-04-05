@@ -27,18 +27,22 @@ header {
     margin-left: 20px;
 }
 
-#dig-refresh-button {
-    float:right;
-    margin: 0 10px 0 10px;
+form.loginForm {
+  float: right;
 }
 
-#random-button {
-    float: right;
-    width: 48px;
-    height: 48px;
-    margin: 0 10px 0 10px;
-    
-    /* background-color: rgba(14,14,14,1.0); */
-    border: 1px solid black;
-    border-radius: 10px;
+form.loginForm div {
+  display: inline-block;
+  vertical-align:top;
+}
+
+form.loginForm div label {
+  font-weight: bold;
+}
+
+form.loginForm a:link, form.loginForm a:visited {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 0.8em;
 }

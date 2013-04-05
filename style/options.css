@@ -11,61 +11,85 @@ root {
 }
 
 .block {
-    display: inline-block;
-    padding: 5px;
-/*    border: 1px dotted black;*/
+  display: inline-block;
+  padding: 5px;
+  /*    border: 1px dotted black;*/
 }
 
 div#select-fields {
-    margin: 5px 0;
-    padding: 5px 0;
-    text-align: center;  
-    height: 100%; 
-    width: 100%;
+  margin: 5px 0;
+  padding: 5px 0;
+  text-align: center;  
+  height: 100%; 
+  width: 100%;
 }
 
 .axis-select {
-    display: block; 
-    padding: 0;
-    margin: 0;
+  display: block; 
+  padding: 0;
+  margin: 0;
 }
 .axis-select span {
-    display: block; 
-    width: 100%;
+  display: block; 
+  width: 100%;
 }
 .axis-select select {
-    display: block; 
-    /*
-    height: 10em;
-    */
-    width: 100%;
+  display: block; 
+  /*
+  height: 10em;
+  */
+  width: 100%;
 }
 
 div#options-panel {
-    width: 100%;
-    border: 1px solid black;
-    background-color: rgba(230,230,230,0.9);
-    display: inline-block;
-    position: fixed;
-    overflow: hidden;
-    z-index: 10;
-    -moz-border-radius: 15px;
-    border-radius: 5px;
-    box-shadow: 0px -25px 200px 1px rgba(0,0,0,0.7);
+  width: 100%;
+  border: 1px solid black;
+  background-color: rgba(230,230,230,0.9);
+  display: inline-block;
+  position: fixed;
+  overflow: hidden;
+  z-index: 10;
+  -moz-border-radius: 15px;
+  border-radius: 5px;
+  box-shadow: 0px -25px 200px 1px rgba(0,0,0,0.7);
 }
 
 div#options-toggle {
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    border: 1px solid black;
-    background-color: rgba(13,14,14,1.0);
-    margin: 5px 0;
-    padding: 5px 0 5px 0;
-    -moz-border-radius: 15px;
-    border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid black;
+  background-color: rgba(13,14,14,1.0);
+  margin: 5px 0;
+  padding: 5px 0 5px 0;
+  -moz-border-radius: 15px;
+  border-radius: 5px;
 }
 
 .block span {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+#random-button, #dig-refresh-button {
+  display: inline-block;
+  margin: 10px 10px 0px 0px; 
+  text-align: center;
+}
+#random-button button, #dig-refresh-button button {
+  width: 48px;
+  height: 48px;
+  padding: 0px;
+}
+
+#random-button img, #dig-refresh-button img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.options-title {
+  font-size: 1.3em;
+  font-weight: bold;
 }
