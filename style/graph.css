@@ -10,9 +10,17 @@ root {
   display: block;
 }
 
+#dm-graph-box {
+  width: 100%;
+  height: 100%;
+}
+
 #graphContainer {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    min-height: 0px; 
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
     border: 2px solid black;
   /* padding: 5px;*/
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
