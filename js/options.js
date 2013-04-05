@@ -137,7 +137,7 @@ function displayFieldList() {
     zAxisSelect.append(
             $('<option />', {'value': c})
             .append("F" + (c + 1))
-            .attr(((c === 1) ? "selected" : "not-selected"), ((c === 1) ? "selected" : "")));
+            .attr(((c === 2) ? "selected" : "not-selected"), ((c === 2) ? "selected" : "")));
 
   }
 

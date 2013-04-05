@@ -56,9 +56,9 @@ var graphClusters3D = function(clusters) {
     "y": {
       "vars": dataLabels,
       "smps": [
-        "x",
-        "y",
-        "z "
+        "X Axis",
+        "Y Axis",
+        "Z Axis"
       ],
       "desc": [
         "Intensity"

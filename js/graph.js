@@ -74,7 +74,9 @@ function updateScreen() {
     maxIter: parseInt(maxIter), 
     centers: parseInt(clustersCount)
   });
-
+  
+  var myDiv = $("#graphContainer");
+  myDiv.animate({ scrollTop: myDiv.prop("scrollHeight") - myDiv.height()-100 }, 3000);
 }
 
 /* 

@@ -25,6 +25,8 @@ Glavin Wiechert
     <script src='js/libs/flot-0.7/jquery.flot.min.js'></script>
     <script src="js/libs/socket.io-0.9.10/socket.io.min.js"></script>
     <script src="js/libs/jqTree/tree.jquery.js"></script>
+    <!--[if lt IE 9]><script type="text/javascript" src="./js/flashcanvas.js"></script><![endif]-->
+    <script src="./js/libs/canvasXpress/canvasXpress.min.js"></script>
 
     <!-- Global Variables -->
     <script>
@@ -109,7 +111,7 @@ Glavin Wiechert
     <script type="text/javascript" src="./js/options.js"></script>
     <script type="text/javascript" src="./js/styler.js"></script>
     <script type="text/javascript" src="./js/stats.js"></script>
-
+    
   </head>
   <body class="not-logged-in">
     <header >
@@ -153,7 +155,9 @@ Glavin Wiechert
 
           <td id="dm-graph-box">
             <div id="graphContainer" class="graphContainer">
-              <div id="dm-graph" class="graphContainer"></div>
+              <div id="dm-graph" class="graphContainer">
+                <canvas id="dig-can" width="600" height="600" style="position: absolute;"></canvas>
+              </div>
             </div>
           </td>
 
