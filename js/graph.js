@@ -76,7 +76,7 @@ function updateScreen() {
   });
   
   var myDiv = $("#graphContainer");
-  myDiv.animate({ scrollTop: myDiv.prop("scrollHeight") - myDiv.height()-50 }, 3000);
+  myDiv.animate({ scrollTop: myDiv.prop("scrollHeight") - myDiv.height()-100 }, 3000);
 }
 
 /* 
