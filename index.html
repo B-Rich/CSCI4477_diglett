@@ -82,6 +82,7 @@ Glavin Wiechert
         $('#logout').click(function() {
           socket.emit('logout');
           $('body').addClass('not-logged-in').removeClass('logged-in');
+          resizePage();
           return false;
         });
 
