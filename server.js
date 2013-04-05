@@ -3,9 +3,6 @@
  * Feb 20, 2013
  */
 
-// constants
-
-
 // setup the logger 
 var logger = undefined;
 try {
@@ -25,7 +22,6 @@ try {
   process.exit(1);
 }
 
-
 logger.log('Loading modules.');
 
 // import all need libs
@@ -38,7 +34,8 @@ var
         express = require('express'),
         connect = require('connect'),
         cookie = require('cookie'),
-        mongo = require('mongodb');
+        mongo = require('mongodb'),
+        dutil = require('./node/dig-util');
 
 // connect to mongo db
 var db = new mongo.Db('diglett', new mongo.Server('localhost', 27017, {
@@ -49,13 +46,13 @@ db.open(function() {
 
 // kmeans lib
 /*
- var kmeans = require('./node/k2d').kmeans; // 2D
+ var kmeans = require('./node/kmeans/kmeans').k2d.kmeans; // 2D
  /*/
-var kmeans = require('./node/k3d').kmeans; // 3D
+var kmeans = require('./node/kmeans/kmeans').k3d.kmeans; // 3D
 //*/
 
 // ----------------------------------------------------------------------------
-// START Server
+// Start Server
 // ----------------------------------------------------------------------------
 
 var userStore = {};
@@ -80,13 +77,6 @@ app.configure(function() {
   }));
   // session support
   app.use(express.cookieParser());
-  
-  /*app.use(express.session({
-    store: memStore,
-    secret: 'dugtrio',
-    key: 'diglett.sid'
-  }));
-*/
   app.use(app.router);
 });
 
@@ -133,54 +123,9 @@ app.get('/test', function(request, response) {
 server.listen(1337);
 
 logger.log('Server started.');
-
 // ----------------------------------------------------------------------------
-// END Server
+// End Server -- Start Socket
 // ----------------------------------------------------------------------------
-
-// ----------------------------------------------------------------------------
-// START Socket
-// ----------------------------------------------------------------------------
-
-logger.log('Loading socket methods');
-
-/*
- * 
- * @param {type} file
- * @returns {Array}
- */
-function parse_data(file) {
-
-  try
-  {
-    var
-            fileData = [],
-            rawData = fs.readFileSync(file, 'utf8');
-
-    // seperate data by line
-    var lines = rawData.split('\n');
-
-    // iterate through each line
-    for (var i in lines) {
-
-      // seperate line entries by comma
-      var entries = lines[i].split(',');
-
-      // iterate through each line entry
-      for (var q in entries) {
-        if (fileData[q] === undefined) {
-          fileData[q] = [];
-        }
-        fileData[q][i] = parseFloat(entries[q]);
-      }
-    }
-    return fileData;    // return my dataset
-
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 logger.log('Starting socket.');
 
 io = require('socket.io').listen(server);
@@ -198,7 +143,7 @@ io.sockets.on('connection', function(socket) {
 
     var
             file = userStore[socket.handshake.sessionID].file,
-            fileData = parse_data(file, socket);
+            fileData = dutil.parse_data(file, socket);
 
     logger.log('pull complete');
     logger.log('push data');
@@ -214,13 +159,17 @@ io.sockets.on('connection', function(socket) {
   socket.on('kmeans cluster', function(data) {
     console.log('On : kmeans cluster');
 
-    try {
-      var kmData = kmeans(data);
-      socket.emit('kmeans cluster', kmData);
-    } catch (err) {
-      console.log(err);
-      socket.emit('server error', err);
-    }
+    var kmData = kmeans(data);
+    socket.emit('kmeans cluster', kmData);
+    /*
+     try {
+     var kmData = kmeans(data);
+     socket.emit('kmeans cluster', kmData);
+     } catch (err) {
+     console.log(err);
+     socket.emit('server error', err);
+     }
+     //*/
   });
 
   socket.on('login', function(user) {
@@ -241,16 +190,16 @@ io.sockets.on('connection', function(socket) {
       });
     });
   });
-  
+
   socket.on('logout', function() {
     console.log('On : logout');
-    
-    
+
+    // logout logic here
   });
 });
 
 // ----------------------------------------------------------------------------
-// END Socket
+// End Socket
 // ----------------------------------------------------------------------------
 
 

@@ -46,11 +46,11 @@ var k3d = {
    */
   selectCluster: function(point, clusters) {
     var
-            minClusterDist = distance(point, clusters[0].centroid),
+            minClusterDist = this.distance(point, clusters[0].centroid),
             clusterIndex = 0;
     for (var i = 1; i < clusters.length; i++) {
-      if (minClusterDist > distance(point, clusters[i].centroid)) {
-        minClusterDist = distance(point, clusters[i].centroid);
+      if (minClusterDist > this.distance(point, clusters[i].centroid)) {
+        minClusterDist = this.distance(point, clusters[i].centroid);
         clusterIndex = i;
       }
     }
@@ -65,7 +65,7 @@ var k3d = {
   clusterRadius: function(cluster) {
     var radius_sum = 0;
     for (var i = 0; i < cluster.x.length; i++) {
-      radius_sum = radius_sum + distance(cluster.centroid, {
+      radius_sum = radius_sum + this.distance(cluster.centroid, {
         x: cluster.x[i],
         y: cluster.y[i],
         z: cluster.z[i]
@@ -82,7 +82,7 @@ var k3d = {
   clusterWithinSS: function(cluster) {
     var ss = 0;
     for (var i = 0; i < cluster.x.length; i++) {
-      ss += Math.pow(distance(cluster.centroid, {
+      ss += Math.pow(this.distance(cluster.centroid, {
         x: cluster.x[i],
         y: cluster.y[i],
         z: cluster.z[i]
@@ -156,7 +156,7 @@ module.exports.kmeans = function(data) {
   // create initial clusters
   for (var i = 0; i < data.x.length; i++) {
 
-    var pointClusterIndex = selectCluster({
+    var pointClusterIndex = k3d.selectCluster({
       x: data.x[i],
       y: data.y[i],
       z: data.z[i]
@@ -171,7 +171,7 @@ module.exports.kmeans = function(data) {
 
     // select new centroids
     for (var i = 0; i < clusters.length; i++) {
-      clusters[i].centroid = clusterMean(clusters[i]);
+      clusters[i].centroid = k3d.clusterMean(clusters[i]);
 
       // reset cluster sets
       clusters[i].x = [];
@@ -181,7 +181,7 @@ module.exports.kmeans = function(data) {
 
     // create new clusters
     for (var i = 0; i < data.x.length; i++) {
-      var pointClusterIndex = selectCluster({
+      var pointClusterIndex = k3d.selectCluster({
         x: data.x[i],
         y: data.y[i],
         z: data.z[i]
@@ -196,20 +196,20 @@ module.exports.kmeans = function(data) {
   for (var i = 0; i < clusters.length; i++) {
 
     // radius
-    clusters[i].radius = clusterRadius(clusters[i]);
+    clusters[i].radius = k3d.clusterRadius(clusters[i]);
 
     // cluster to cluster distances
     clusters[i].dist = [];
     for (var j = 0; j < clusters.length; j++) {
-      clusters[i].dist.push(distance(clusters[i].centroid, clusters[j].centroid));
+      clusters[i].dist.push(k3d.distance(clusters[i].centroid, clusters[j].centroid));
     }
 
     // within sum of squares
-    clusters[i].withinss = clusterWithinSS(clusters[i]);
+    clusters[i].withinss = k3d.clusterWithinSS(clusters[i]);
   }
 
   return {
-    DBI: daviesBouldinIndex(clusters),
+    DBI: k3d.daviesBouldinIndex(clusters),
     clusters: clusters
   };
 };

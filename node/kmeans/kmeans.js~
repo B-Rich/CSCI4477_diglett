@@ -1,6 +1,0 @@
-/*
- * Dawson Reid
- */
-
-module.exports = require('k2d');
-module.exports = require('k3d');
