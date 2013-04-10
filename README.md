@@ -6,7 +6,9 @@ clustering algorithm and is capable of visualizing three dimensional data.
 
 ##Authors
 - Asha Rani
-- Chris Oullet
+- Chris Ouellet
 - Dawson Reid
 - Glavin Wiechert
 
+##Live Demo
+http://140.184.137.122:1337/
